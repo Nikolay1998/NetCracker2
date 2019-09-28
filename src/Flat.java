@@ -35,4 +35,11 @@ public class Flat {
         this.area = area;
     }
 
+    @Override
+    public String toString() {
+        return "Flat{" +
+                "area=" + area +
+                ", roomCount=" + roomCount +
+                '}';
+    }
 }
