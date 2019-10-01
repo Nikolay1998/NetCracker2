@@ -76,14 +76,17 @@ public class DwellingFloor {
     }
 
     public Flat getBestSpace() {
-        double bestArea = 0;
-        int bestFlatNum = 0;
-        for (int i = 0; i < flats.length; i++) {
-            if (flats[i].getArea() > bestArea) {
-                bestArea = flats[i].getArea();
-                bestFlatNum = i;
+        if(flats.length>0) {
+            double bestArea = 0;
+            int bestFlatNum = 0;
+            for (int i = 0; i < flats.length; i++) {
+                if (flats[i].getArea() > bestArea) {
+                    bestArea = flats[i].getArea();
+                    bestFlatNum = i;
+                }
             }
+            return flats[bestFlatNum];
         }
-        return flats[bestFlatNum];
+        else return null;
     }
 }
