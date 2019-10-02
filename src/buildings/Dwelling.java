@@ -1,3 +1,5 @@
+package buildings;
+
 public class Dwelling {
     private DwellingFloor[] floors;
 
@@ -102,15 +104,6 @@ public class Dwelling {
     }
 
     public Flat[] getSortedByAreaFlats() {
-        /*for(int i = 0 ; (2^i) < floors.length; i++){
-            for(int j = 0; j < floors.length/(2^i)-1; j++){
-                merge(sort(floors[j].getFlats()), sort(floors[++j].getFlats()));
-            }
-        }
-        for(int i = 0; i < floors.length; i++){
-            merge(sort(floors[i].getFlats()), sort(floors[++i].getFlats()));
-        }
-         */
         long start = System.currentTimeMillis();
         Flat[] result;
         if (floors.length > 1) {
@@ -118,7 +111,6 @@ public class Dwelling {
             for (int i = 2; i < floors.length; i++) {
                 result = merge(result, sort(floors[i].getFlats()));
             }
-            return result;
         } else {
             result = sort(floors[0].getFlats());
         }
@@ -127,23 +119,6 @@ public class Dwelling {
         System.out.println("Merge sort done in " + timeConsumedMillis + " ms.");
         return result;
     }
-/*
-    public Flat[] bubbleSort(){
-        Flat[] overalFlats = new Flat[getFlatCount()];
-        int t = 0;
-        for(int i = 0; i < floors.length; i++){
-            for(int j = 0; j < floors[i].getFlatCount(); j++){
-                overalFlats[t++] = floors[i].getFlat(j);
-            }
-        }
-        for(int i = 0; i < overalFlats.length; i++){
-            System.out.println(overalFlats[i].toString());
-        }
-
-        return null;
-    }
-
- */
 
 
     private Flat[] sort(Flat[] flats) {

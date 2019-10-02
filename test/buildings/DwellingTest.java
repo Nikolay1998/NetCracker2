@@ -1,3 +1,5 @@
+package buildings;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -79,11 +81,4 @@ public class DwellingTest {
         }
 
     }
-/*
-    @Test
-    public void testBubbleSort(){
-        building.bubbleSort();
-    }
-
- */
 }
