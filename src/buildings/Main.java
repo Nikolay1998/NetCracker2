@@ -6,5 +6,6 @@ public class Main {
         DwellingFloor floor = build.getFloor(3);
         //System.out.println(floor.getFlatCount());
         System.out.println(build.getFlat(14).getArea());
+
     }
 }

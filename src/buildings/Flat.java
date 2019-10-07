@@ -3,7 +3,7 @@ package buildings;
 public class Flat {
     private double area;
     private int roomCount;
-    public static final double DEF_AREA = 50;
+    public static final double DEF_AREA = 50.0;
     public static final int DEF_ROOM_COUNT = 2;
 
     public Flat(){
