@@ -1,3 +1,5 @@
+package buildings;
+
 public class Office {
     private double area;
     private int roomCount;

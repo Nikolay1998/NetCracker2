@@ -1,3 +1,5 @@
+package buildings;
+
 public class Node {
     private Office office;
     private Node next;

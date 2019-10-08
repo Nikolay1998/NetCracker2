@@ -1,5 +1,6 @@
+package buildings;
+
 public class OfficeFloor {
-    Node[] oficceList;
     Node head;
 
     private Node getNode(int num) {
@@ -12,18 +13,35 @@ public class OfficeFloor {
 
     private void addNode(int num, Office office) {
         Node currentNode = head;
-        for (int i = 0; i < num - 1; i++) {
-            currentNode = currentNode.getNext();
+        if(num == 0){
+            Node prevHead = head;
+            Node newHead = new Node(new Office(), prevHead);
+            while (currentNode.getNext() != head) currentNode = currentNode.getNext();
+            currentNode.setNext(newHead);
+            head = newHead;
         }
-        currentNode.setNext(new Node(office, currentNode.getNext()));
+        else {
+            for (int i = 0; i < num - 1; i++) {
+                currentNode = currentNode.getNext();
+            }
+            currentNode.setNext(new Node(office, currentNode.getNext()));
+        }
     }
 
     private void deleteNode(int num) {
         Node currentNode = head;
-        for (int i = 0; i < num - 1; i++) {
-            currentNode = currentNode.getNext();
+        if(num == 0){
+            Node newHead = head.getNext();
+            while (currentNode.getNext() != head) currentNode = currentNode.getNext();
+            currentNode.setNext(newHead);
+            head = newHead;
         }
-        currentNode.setNext(currentNode.getNext().getNext());
+        else {
+            for (int i = 0; i < num - 1; i++) {
+                currentNode = currentNode.getNext();
+            }
+            currentNode.setNext(currentNode.getNext().getNext());
+        }
     }
 
     public OfficeFloor(Office[] oficceArray) {
@@ -62,9 +80,9 @@ public class OfficeFloor {
         return area;
     }
 
-    public double getRoomCount() {
+    public int getRoomCount() {
         Node currentNode = head.getNext();
-        double roomCount = head.getOffice().getRoomCount();
+        int roomCount = head.getOffice().getRoomCount();
         while (currentNode != head) {
             roomCount += currentNode.getOffice().getRoomCount();
             currentNode = currentNode.getNext();
@@ -88,8 +106,8 @@ public class OfficeFloor {
         getNode(num).setOffice(office);
     }
 
-    public void addOfice(int num){
-        addNode(num, new Office());
+    public void addOffice(int num, Office newOffice){
+        addNode(num, newOffice);
     }
 
     public void deleteOffice(int num){
