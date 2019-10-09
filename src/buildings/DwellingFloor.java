@@ -10,7 +10,7 @@ public class DwellingFloor implements Floor{
         }
     }
 
-    public DwellingFloor(Flat[] spaces) {
+    public DwellingFloor(Space[] spaces) {
         this.spaces = spaces;
     }
 
@@ -38,56 +38,56 @@ public class DwellingFloor implements Floor{
         return spaces;
     }
 
-    public Space getFlat(int num) {
+    public Space getSpace(int num) {
         return spaces[num];
     }
 
-    public void setFlat(int num, Flat newFlat) {
-        spaces[num] = newFlat;
+    public void setSpace(int num, Space newSpace) {
+        spaces[num] = newSpace;
     }
 
-    public void addFlat(int num, Space newFlat) {
-        Space[] newFlats = new Space[spaces.length + 1];
+    public void addSpace(int num, Space newSpace) {
+        Space[] newSpaces = new Space[spaces.length + 1];
         int i = 0;
         while (i < num) {
-            newFlats[i] = spaces[i];
+            newSpaces[i] = spaces[i];
             i++;
         }
-        newFlats[i] = newFlat;
+        newSpaces[i] = newSpace;
         i++;
-        while (i < newFlats.length) {
-            newFlats[i] = spaces[i - 1];
+        while (i < newSpaces.length) {
+            newSpaces[i] = spaces[i - 1];
             i++;
         }
-        spaces = newFlats;
+        spaces = newSpaces;
     }
 
-    public void deleteFlat(int num) {
-        Space[] newFlats = new Space[spaces.length - 1];
+    public void deleteSpace(int num) {
+        Space[] newSpaces = new Space[spaces.length - 1];
         int i = 0;
         while (i < num) {
-            newFlats[i] = spaces[i];
+            newSpaces[i] = spaces[i];
             i++;
         }
         i++;
-        while (i < newFlats.length) {
-            newFlats[i] = spaces[i - 1];
+        while (i < newSpaces.length) {
+            newSpaces[i] = spaces[i - 1];
             i++;
         }
-        spaces = newFlats;
+        spaces = newSpaces;
     }
 
     public Space getBestSpace() {
         if(spaces.length>0) {
             double bestArea = 0;
-            int bestFlatNum = 0;
+            int bestSpaceNum = 0;
             for (int i = 0; i < spaces.length; i++) {
                 if (spaces[i].getArea() > bestArea) {
                     bestArea = spaces[i].getArea();
-                    bestFlatNum = i;
+                    bestSpaceNum = i;
                 }
             }
-            return spaces[bestFlatNum];
+            return spaces[bestSpaceNum];
         }
         else return null;
     }

@@ -117,7 +117,7 @@ public class OfficeBuilding {
         while (num >= getFloor(i).getSpaceCount()) {
             num -= getFloor(i++).getSpaceCount();
         }
-        return getFloor(i).getOffice(num);
+        return getFloor(i).getSpace(num);
     }
 
     public void setOffice(int num, Office newOffice) {
@@ -125,7 +125,7 @@ public class OfficeBuilding {
         while (num >= getFloor(i).getSpaceCount()) {
             num -= getFloor(i++).getSpaceCount();
         }
-        getFloor(i).setOffice(num, newOffice);
+        getFloor(i).setSpace(num, newOffice);
     }
 
     public void addOffice(int num, Office newOffice) {
@@ -133,7 +133,7 @@ public class OfficeBuilding {
         while (num >= getFloor(i).getSpaceCount()) {
             num -= getFloor(i++).getSpaceCount();
         }
-        getFloor(i).addOffice(num, newOffice);
+        getFloor(i).addSpace(num, newOffice);
     }
 
     public void deleteOffice(int num) {
@@ -141,7 +141,7 @@ public class OfficeBuilding {
         while (num >= getFloor(i).getSpaceCount()) {
             num -= getFloor(i++).getSpaceCount();
         }
-        getFloor(i).deleteOffice(num);
+        getFloor(i).deleteSpace(num);
     }
 
     public Office getBestSpace() {
@@ -162,12 +162,12 @@ public class OfficeBuilding {
         long start = System.currentTimeMillis();
         Office[] result;
         if (getFloorCount() > 1) {
-            result = merge(sort(getFloor(0).getOffices()), sort(getFloor(1).getOffices()));
+            result = merge(sort(getFloor(0).getSpaces()), sort(getFloor(1).getSpaces()));
             for (int i = 2; i < getFloorCount(); i++) {
-                result = merge(result, sort(getFloor(i).getOffices()));
+                result = merge(result, sort(getFloor(i).getSpaces()));
             }
         } else {
-            result = sort(getFloor(0).getOffices());
+            result = sort(getFloor(0).getSpaces());
         }
         long finish = System.currentTimeMillis();
         long timeConsumedMillis = finish - start;

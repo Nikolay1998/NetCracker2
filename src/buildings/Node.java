@@ -1,20 +1,20 @@
 package buildings;
 
 public class Node {
-    private Office office;
+    private Space space;
     private Node next;
 
-    public Node(Office office, Node next) {
-        this.office = office;
+    public Node(Space space, Node next) {
+        this.space = space;
         this.next = next;
     }
 
-    public Node(Office office) {
-        this.office = office;
+    public Node(Space space) {
+        this.space = space;
     }
 
-    public Office getOffice() {
-        return office;
+    public Space getSpace() {
+        return space;
     }
 
     public Node getNext() {
@@ -25,7 +25,7 @@ public class Node {
         this.next = next;
     }
 
-    public void setOffice(Office office) {
-        this.office = office;
+    public void setSpace(Space space) {
+        this.space = space;
     }
 }

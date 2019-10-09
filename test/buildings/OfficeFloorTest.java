@@ -45,7 +45,7 @@ public class OfficeFloorTest {
     @Test
     public void getBestSpaceTest() {
         Office bigOffice = new Office(size*10+1, 10);
-        floor.setOffice(2, bigOffice);
+        floor.setSpace(2, bigOffice);
         assertEquals(bigOffice, floor.getBestSpace());
     }
 
@@ -54,10 +54,10 @@ public class OfficeFloorTest {
         Office[] offices = new Office[size];
         for (int i = 0; i < size; i++) {
             offices[i] = new Office(i * 20, i);
-            floor.setOffice(i, offices[i]);
+            floor.setSpace(i, offices[i]);
         }
         for (int i = 0; i < size; i++) {
-            assertEquals(offices[i], floor.getOffice(i));
+            assertEquals(offices[i], floor.getSpace(i));
         }
     }
 
@@ -69,13 +69,13 @@ public class OfficeFloorTest {
     @Test
     public void addAndDeleteOfficeTest() {
         for (int i = 0; i < size; i++) {
-            floor.addOffice(i, new Office());
-            assertEquals("on " + i + " iteration", 1, floor.getOffice(i).getRoomCount());
-            floor.deleteOffice(i);
+            floor.addSpace(i, new Office());
+            assertEquals("on " + i + " iteration", 1, floor.getSpace(i).getRoomCount());
+            floor.deleteSpace(i);
         }
         Office lastOffice = new Office(130, 1);
-        floor.addOffice(size, lastOffice);
-        assertEquals(lastOffice, floor.getOffice(size));
+        floor.addSpace(size, lastOffice);
+        assertEquals(lastOffice, floor.getSpace(size));
         assertEquals(size + 1, floor.getSpaceCount());
     }
 

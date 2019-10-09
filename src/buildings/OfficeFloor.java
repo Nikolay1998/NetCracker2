@@ -11,11 +11,11 @@ public class OfficeFloor implements Floor{
         return currentNode;
     }
 
-    private void addNode(int num, Office office) {
+    private void addNode(int num, Space space) {
         Node currentNode = head;
         if(num == 0){
             Node prevHead = head;
-            Node newHead = new Node(new Office(), prevHead);
+            Node newHead = new Node(space, prevHead);
             while (currentNode.getNext() != head) currentNode = currentNode.getNext();
             currentNode.setNext(newHead);
             head = newHead;
@@ -24,7 +24,7 @@ public class OfficeFloor implements Floor{
             for (int i = 0; i < num - 1; i++) {
                 currentNode = currentNode.getNext();
             }
-            currentNode.setNext(new Node(office, currentNode.getNext()));
+            currentNode.setNext(new Node(space, currentNode.getNext()));
         }
     }
 
@@ -44,12 +44,12 @@ public class OfficeFloor implements Floor{
         }
     }
 
-    public OfficeFloor(Office[] oficceArray) {
-        head = new Node(oficceArray[0]);
-        for (int i = 1; i < oficceArray.length; i++) {
-            getNode(i - 1).setNext(new Node(oficceArray[i]));
+    public OfficeFloor(Space[] spaceArray) {
+        head = new Node(spaceArray[0]);
+        for (int i = 1; i < spaceArray.length; i++) {
+            getNode(i - 1).setNext(new Node(spaceArray[i]));
         }
-        getNode(oficceArray.length - 1).setNext(head);
+        getNode(spaceArray.length - 1).setNext(head);
     }
 
     public OfficeFloor(int size) {
@@ -72,9 +72,9 @@ public class OfficeFloor implements Floor{
 
     public double getArea() {
         Node currentNode = head.getNext();
-        double area = head.getOffice().getArea();
+        double area = head.getSpace().getArea();
         while (currentNode != head) {
-            area += currentNode.getOffice().getArea();
+            area += currentNode.getSpace().getArea();
             currentNode = currentNode.getNext();
         }
         return area;
@@ -82,49 +82,49 @@ public class OfficeFloor implements Floor{
 
     public int getRoomCount() {
         Node currentNode = head.getNext();
-        int roomCount = head.getOffice().getRoomCount();
+        int roomCount = head.getSpace().getRoomCount();
         while (currentNode != head) {
-            roomCount += currentNode.getOffice().getRoomCount();
+            roomCount += currentNode.getSpace().getRoomCount();
             currentNode = currentNode.getNext();
         }
         return roomCount;
     }
 
-    public Office[] getOffices(){
-        Office[] offices = new Office[getSpaceCount()];
+    public Space[] getSpaces(){
+        Space[] spaces = new Space[getSpaceCount()];
         for(int i = 0; i < getSpaceCount(); i++){
-            offices[i] = getOffice(i);
+            spaces[i] = getSpace(i);
         }
-        return offices;
+        return spaces;
     }
 
-    public Office getOffice(int num){
-        return getNode(num).getOffice();
+    public Space getSpace(int num){
+        return getNode(num).getSpace();
     }
 
-    public void setOffice(int num, Office office){
-        getNode(num).setOffice(office);
+    public void setSpace(int num, Space space){
+        getNode(num).setSpace(space);
     }
 
-    public void addOffice(int num, Office newOffice){
-        addNode(num, newOffice);
+    public void addSpace(int num, Space newSpace){
+        addNode(num, newSpace);
     }
 
-    public void deleteOffice(int num){
+    public void deleteSpace(int num){
         deleteNode(num);
     }
 
-    public Office getBestSpace() {
+    public Space getBestSpace() {
         if(getSpaceCount()>0) {
             double bestArea = 0;
-            int bestOfficeNum = 0;
+            int bestSpaceNum = 0;
             for (int i = 0; i < getSpaceCount(); i++) {
-                if (getOffice(i).getArea() > bestArea) {
-                    bestArea = getOffice(i).getArea();
-                    bestOfficeNum = i;
+                if (getSpace(i).getArea() > bestArea) {
+                    bestArea = getSpace(i).getArea();
+                    bestSpaceNum = i;
                 }
             }
-            return getOffice(bestOfficeNum);
+            return getSpace(bestSpaceNum);
         }
         else return null;
     }

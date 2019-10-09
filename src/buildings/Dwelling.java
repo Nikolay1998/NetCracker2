@@ -62,7 +62,7 @@ public class Dwelling {
         while (num >= floors[i].getSpaceCount()) {
             num -= floors[i++].getSpaceCount();
         }
-        return floors[i].getFlat(num);
+        return floors[i].getSpace(num);
     }
 
     public void setFlat(int num, Flat newFlat) {
@@ -70,7 +70,7 @@ public class Dwelling {
         while (num >= floors[i].getSpaceCount()) {
             num -= floors[i++].getSpaceCount();
         }
-        floors[i].setFlat(num, newFlat);
+        floors[i].setSpace(num, newFlat);
     }
 
     public void addFlat(int num, Flat flat) {
@@ -78,7 +78,7 @@ public class Dwelling {
         while (num > floors[i].getSpaceCount()) {
             num -= floors[i++].getSpaceCount();
         }
-        floors[i].addFlat(num, flat);
+        floors[i].addSpace(num, flat);
     }
 
     public void deleteFlat(int num) {
@@ -86,7 +86,7 @@ public class Dwelling {
         while (num > floors[i].getSpaceCount()) {
             num -= floors[i++].getSpaceCount();
         }
-        floors[i].deleteFlat(num);
+        floors[i].deleteSpace(num);
     }
 
     public Flat getBestSpace() {
