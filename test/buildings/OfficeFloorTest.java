@@ -14,7 +14,7 @@ public class OfficeFloorTest {
         size = 100;
         Office[] offices = new Office[size];
         for (int i = 0; i < size; i++) {
-            offices[i] = new Office(10 * i, i);
+            offices[i] = new Office(10 * i + 1, i + 1);
         }
         floor = new OfficeFloor(offices);
     }
@@ -28,7 +28,7 @@ public class OfficeFloorTest {
     public void getAreaTest() {
         double area = 0;
         for (int i = 0; i < size; i++) {
-            area += i * 10;
+            area += i * 10 + 1;
         }
         assertEquals((int) area, (int) floor.getArea());
     }
@@ -37,7 +37,7 @@ public class OfficeFloorTest {
     public void getRoomCountTest() {
         int roomCount = 0;
         for (int i = 0; i < size; i++) {
-            roomCount += i;
+            roomCount += i + 1;
         }
         assertEquals(roomCount, floor.getRoomCount());
     }
@@ -53,7 +53,7 @@ public class OfficeFloorTest {
     public void setAndGetOfficeTest() {
         Office[] offices = new Office[size];
         for (int i = 0; i < size; i++) {
-            offices[i] = new Office(i * 20, i);
+            offices[i] = new Office(i * 20 + 1, i + 1);
             floor.setSpace(i, offices[i]);
         }
         for (int i = 0; i < size; i++) {
