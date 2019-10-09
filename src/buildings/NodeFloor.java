@@ -1,30 +1,30 @@
 package buildings;
 
 public class NodeFloor {
-    private OfficeFloor floor;
+    private Floor floor;
     private NodeFloor next;
     private NodeFloor prev;
 
-    public NodeFloor(OfficeFloor floor, NodeFloor next, NodeFloor prev) {
+    public NodeFloor(Floor floor, NodeFloor next, NodeFloor prev) {
         this.floor = floor;
         this.next = next;
         this.prev = prev;
     }
 
-    public NodeFloor(OfficeFloor floor, NodeFloor prev) {
+    public NodeFloor(Floor floor, NodeFloor prev) {
         this.floor = floor;
         this.prev = prev;
     }
 
-    public NodeFloor(OfficeFloor floor) {
+    public NodeFloor(Floor floor) {
         this.floor = floor;
     }
 
-    public OfficeFloor getFloor() {
+    public Floor getFloor() {
         return floor;
     }
 
-    public void setFloor(OfficeFloor floor) {
+    public void setFloor(Floor floor) {
         this.floor = floor;
     }
 

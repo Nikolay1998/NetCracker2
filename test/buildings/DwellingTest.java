@@ -20,12 +20,12 @@ public class DwellingTest {
         Flat[] expectedFlats = new Flat[TEST_SIZE];
         for (int i = 0; i < TEST_SIZE; i++) {
             expectedFlats[i] = new Flat(i * 10, i);
-            building.setFlat(i, expectedFlats[i]);
+            building.setSpace(i, expectedFlats[i]);
         }
 
         for (int i = 0; i < 12; i++) {
-            Flat actualFlat = building.getFlat(i);
-            assertEquals("Квартиры отличаются", expectedFlats[i], actualFlat);
+            Space actualSpace = building.getSpace(i);
+            assertEquals("Квартиры отличаются", expectedFlats[i], actualSpace);
         }
     }
 
@@ -46,16 +46,16 @@ public class DwellingTest {
     public void testAddAndDeleteFlat() {
         for (int i = 0; i < TEST_SIZE + 1; i++) {
             Flat addingFlat = new Flat(i * 20, i * 2);
-            building.addFlat(i, addingFlat);
+            building.addSpace(i, addingFlat);
             //System.out.println(addingFlat);
-            assertEquals("Квартира добавленна некоркетно", addingFlat, building.getFlat(i));
-            building.deleteFlat(i);
+            assertEquals("Квартира добавленна некоркетно", addingFlat, building.getSpace(i));
+            building.deleteSpace(i);
         }
     }
 
     @Test
     public void testGetBestSpace() {
-        Flat expectedBestSpace = building.getFlat(TEST_SIZE - 1);
+        Space expectedBestSpace = building.getSpace(TEST_SIZE - 1);
         assertEquals("Поиск наибольшей по площади квартиры работает некоректно", expectedBestSpace, building.getBestSpace());
     }
 
@@ -71,13 +71,13 @@ public class DwellingTest {
         Collections.shuffle(Arrays.asList(originalFlats));
 
         for (int i = 0; i < TEST_SIZE; i++) {
-            building.setFlat(i, originalFlats[i]);
+            building.setSpace(i, originalFlats[i]);
         }
 
-        Flat[] sortedFlats = building.getSortedByAreaFlats();
+        Space[] sortedSpaces = building.getSortedByAreaSpaces();
         for (int i = 0; i < TEST_SIZE; i++) {
-            System.out.println(sortedFlats[i].toString());
-            assertEquals(expectedFlats[i], sortedFlats[i]);
+            System.out.println(sortedSpaces[i].toString());
+            assertEquals(expectedFlats[i], sortedSpaces[i]);
         }
 
     }

@@ -33,27 +33,27 @@ public class OfficeBuildingTest {
         for(int i = 0; i < size; i++){
             expectedSize += i + 1;
         }
-        assertEquals(expectedSize, building.getOfficeCount());
+        assertEquals(expectedSize, building.getSpaceCount());
     }
 
     @Test
     public void getSortedByAreaOfficesTest(){
 
-        Office[] originalOffices = new Office[building.getOfficeCount()];
-        Office[] expectedOffices = new Office[building.getOfficeCount()];
-        for(int i = 0; i < building.getOfficeCount(); i++){
-            originalOffices[i] = new Office((building.getOfficeCount() - i - 1) * 10);
+        Office[] originalOffices = new Office[building.getSpaceCount()];
+        Office[] expectedOffices = new Office[building.getSpaceCount()];
+        for(int i = 0; i < building.getSpaceCount(); i++){
+            originalOffices[i] = new Office((building.getSpaceCount() - i - 1) * 10);
             expectedOffices[i] = originalOffices[i];
         }
 
         Collections.shuffle(Arrays.asList(originalOffices));
-        for(int i = 0; i < building.getOfficeCount(); i++){
-            building.setOffice(i, originalOffices[i]);
+        for(int i = 0; i < building.getSpaceCount(); i++){
+            building.setSpace(i, originalOffices[i]);
         }
 
-        Office[] sortedByAreaOffices = building.getSortedByAreaOffices();
+        Space[] sortedByAreaOffices = building.getSortedByAreaSpaces();
 
-        for (int i = 0; i < building.getOfficeCount(); i++) {
+        for (int i = 0; i < building.getSpaceCount(); i++) {
             assertEquals("on " + i + " iteration.", expectedOffices[i], sortedByAreaOffices[i]);
         }
 

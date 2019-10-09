@@ -1,7 +1,7 @@
 package buildings;
 
-public class Dwelling {
-    private DwellingFloor[] floors;
+public class Dwelling implements Building{
+    private Floor[] floors;
 
     public Dwelling(int floorCount, int[] flatCount) {
         if (floorCount != flatCount.length) {
@@ -13,11 +13,11 @@ public class Dwelling {
         }
     }
 
-    public Dwelling(DwellingFloor[] floors) {
+    public Dwelling(Floor[] floors) {
         this.floors = floors;
     }
 
-    public DwellingFloor[] getFloors() {
+    public Floor[] getFloors() {
         return floors;
     }
 
@@ -25,7 +25,7 @@ public class Dwelling {
         return floors.length;
     }
 
-    public int getFlatCount() {
+    public int getSpaceCount() {
         int result = 0;
         for (int i = 0; i < floors.length; i++) {
             result += floors[i].getSpaceCount();
@@ -41,7 +41,7 @@ public class Dwelling {
         return result;
     }
 
-    public double getRoomCount() {
+    public int getRoomCount() {
         int result = 0;
         for (int i = 0; i < floors.length; i++) {
             result += floors[i].getRoomCount();
@@ -49,15 +49,15 @@ public class Dwelling {
         return result;
     }
 
-    public DwellingFloor getFloor(int num) {
+    public Floor getFloor(int num) {
         return floors[num];
     }
 
-    public void setFloor(int num, DwellingFloor floor) {
+    public void setFloor(int num, Floor floor) {
         floors[num] = floor;
     }
 
-    public Flat getFlat(int num) {
+    public Space getSpace(int num) {
         int i = 0;
         while (num >= floors[i].getSpaceCount()) {
             num -= floors[i++].getSpaceCount();
@@ -65,23 +65,23 @@ public class Dwelling {
         return floors[i].getSpace(num);
     }
 
-    public void setFlat(int num, Flat newFlat) {
+    public void setSpace(int num, Space newSpace) {
         int i = 0;
         while (num >= floors[i].getSpaceCount()) {
             num -= floors[i++].getSpaceCount();
         }
-        floors[i].setSpace(num, newFlat);
+        floors[i].setSpace(num, newSpace);
     }
 
-    public void addFlat(int num, Flat flat) {
+    public void addSpace(int num, Space space) {
         int i = 0;
         while (num > floors[i].getSpaceCount()) {
             num -= floors[i++].getSpaceCount();
         }
-        floors[i].addSpace(num, flat);
+        floors[i].addSpace(num, space);
     }
 
-    public void deleteFlat(int num) {
+    public void deleteSpace(int num) {
         int i = 0;
         while (num > floors[i].getSpaceCount()) {
             num -= floors[i++].getSpaceCount();
@@ -89,23 +89,23 @@ public class Dwelling {
         floors[i].deleteSpace(num);
     }
 
-    public Flat getBestSpace() {
+    public Space getBestSpace() {
         double bestArea = 0;
-        int floorWithBestFlatNum = 0;
+        int floorWithBestSpaceNum = 0;
         for (int i = 0; i < floors.length; i++) {
             if (floors[i].getSpaces().length > 0) {
                 if (floors[i].getBestSpace().getArea() > bestArea) {
                     bestArea = floors[i].getBestSpace().getArea();
-                    floorWithBestFlatNum = i;
+                    floorWithBestSpaceNum = i;
                 }
             }
         }
-        return floors[floorWithBestFlatNum].getBestSpace();
+        return floors[floorWithBestSpaceNum].getBestSpace();
     }
 
-    public Flat[] getSortedByAreaFlats() {
+    public Space[] getSortedByAreaSpaces() {
         long start = System.currentTimeMillis();
-        Flat[] result;
+        Space[] result;
         if (floors.length > 1) {
             result = merge(sort(floors[0].getSpaces()), sort(floors[1].getSpaces()));
             for (int i = 2; i < floors.length; i++) {
@@ -121,29 +121,29 @@ public class Dwelling {
     }
 
 
-    private Flat[] sort(Flat[] flats) {
-        if (flats.length > 2) {
-            Flat[] leftPart = new Flat[flats.length / 2];
+    private Space[] sort(Space[] spaces) {
+        if (spaces.length > 2) {
+            Space[] leftPart = new Space[spaces.length / 2];
             for (int i = 0; i < leftPart.length; i++) {
-                leftPart[i] = flats[i];
+                leftPart[i] = spaces[i];
             }
-            Flat[] rightPart = new Flat[flats.length - leftPart.length];
-            for (int i = leftPart.length; i < flats.length; i++) {
-                rightPart[i - leftPart.length] = flats[i];
+            Space[] rightPart = new Space[spaces.length - leftPart.length];
+            for (int i = leftPart.length; i < spaces.length; i++) {
+                rightPart[i - leftPart.length] = spaces[i];
             }
             return merge(sort(leftPart), sort(rightPart));
-        } else if (flats.length == 2) {
-            if (flats[0].getArea() < flats[1].getArea()) {
-                Flat t = flats[0];
-                flats[0] = flats[1];
-                flats[1] = t;
+        } else if (spaces.length == 2) {
+            if (spaces[0].getArea() < spaces[1].getArea()) {
+                Space t = spaces[0];
+                spaces[0] = spaces[1];
+                spaces[1] = t;
             }
         }
-        return flats;
+        return spaces;
     }
 
-    private Flat[] merge(Flat[] leftPart, Flat[] rightPart) {
-        Flat[] result = new Flat[leftPart.length + rightPart.length];
+    private Space[] merge(Space[] leftPart, Space[] rightPart) {
+        Space[] result = new Space[leftPart.length + rightPart.length];
         int leftPartCount = 0;
         int rightPartCount = 0;
         int i = 0;

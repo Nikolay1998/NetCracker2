@@ -1,6 +1,6 @@
 package buildings;
 
-public class OfficeBuilding {
+public class OfficeBuilding implements Building{
     NodeFloor head;
 
     private NodeFloor getNode(int num) {
@@ -11,13 +11,13 @@ public class OfficeBuilding {
         return currentNode;
     }
 
-    private void addNode(int num) {
+    private void addNode(int num, Floor floor) {
         NodeFloor currentNode = head;
         for (int i = 0; i < num - 1; i++) {
             currentNode = currentNode.getNext();
         }
         NodeFloor nextNode = currentNode.getNext();
-        NodeFloor newNode = new NodeFloor(new OfficeFloor(0), nextNode, currentNode); // 0?
+        NodeFloor newNode = new NodeFloor(floor, nextNode, currentNode); // 0?
         currentNode.setNext(newNode);
         nextNode.setPrev(newNode);
     }
@@ -44,7 +44,7 @@ public class OfficeBuilding {
         head.setPrev(lastNode);
     }
 
-    public OfficeBuilding(OfficeFloor[] floorArray) {
+    public OfficeBuilding(Floor[] floorArray) {
         head = new NodeFloor(floorArray[0]);
         for (int i = 1; i < floorArray.length; i++) {
             NodeFloor prevNode = getNode(i-1);
@@ -66,7 +66,7 @@ public class OfficeBuilding {
         return counter;
     }
 
-    public int getOfficeCount(){
+    public int getSpaceCount(){
         int counter = head.getFloor().getSpaceCount();
         NodeFloor currentNode = head.getNext();
         while (currentNode != head){
@@ -96,23 +96,23 @@ public class OfficeBuilding {
         return counter;
     }
 
-    public OfficeFloor[] getFloors(){
-        OfficeFloor[] floors = new OfficeFloor[getFloorCount()];
+    public Floor[] getFloors(){
+        Floor[] floors = new Floor[getFloorCount()];
         for(int i = 0; i < getFloorCount(); i++){
             floors[i] = getFloor(i);
         }
         return floors;
     }
 
-    public OfficeFloor getFloor(int num){
+    public Floor getFloor(int num){
         return getNode(num).getFloor();
     }
 
-    public void setFloor(int num, OfficeFloor floor){
+    public void setFloor(int num, Floor floor){
         getNode(num).setFloor(floor);
     }
 
-    public Office getOffice(int num){
+    public Space getSpace(int num){
         int i = 0;
         while (num >= getFloor(i).getSpaceCount()) {
             num -= getFloor(i++).getSpaceCount();
@@ -120,23 +120,23 @@ public class OfficeBuilding {
         return getFloor(i).getSpace(num);
     }
 
-    public void setOffice(int num, Office newOffice) {
+    public void setSpace(int num, Space newSpace) {
         int i = 0;
         while (num >= getFloor(i).getSpaceCount()) {
             num -= getFloor(i++).getSpaceCount();
         }
-        getFloor(i).setSpace(num, newOffice);
+        getFloor(i).setSpace(num, newSpace);
     }
 
-    public void addOffice(int num, Office newOffice) {
+    public void addSpace(int num, Space newSpace) {
         int i = 0;
         while (num >= getFloor(i).getSpaceCount()) {
             num -= getFloor(i++).getSpaceCount();
         }
-        getFloor(i).addSpace(num, newOffice);
+        getFloor(i).addSpace(num, newSpace);
     }
 
-    public void deleteOffice(int num) {
+    public void deleteSpace(int num) {
         int i = 0;
         while (num >= getFloor(i).getSpaceCount()) {
             num -= getFloor(i++).getSpaceCount();
@@ -144,23 +144,23 @@ public class OfficeBuilding {
         getFloor(i).deleteSpace(num);
     }
 
-    public Office getBestSpace() {
+    public Space getBestSpace() {
         double bestArea = 0;
-        int floorWithBestFlatNum = 0;
+        int floorWithBestSpaceNum = 0;
         for (int i = 0; i < getFloorCount(); i++) {
             if (getFloor(i).getSpaceCount() > 0) {
                 if (getFloor(i).getBestSpace().getArea() > bestArea) {
                     bestArea = getFloor(i).getBestSpace().getArea();
-                    floorWithBestFlatNum = i;
+                    floorWithBestSpaceNum = i;
                 }
             }
         }
-        return getFloor(floorWithBestFlatNum).getBestSpace();
+        return getFloor(floorWithBestSpaceNum).getBestSpace();
     }
 
-    public Office[] getSortedByAreaOffices(){
+    public Space[] getSortedByAreaSpaces(){
         long start = System.currentTimeMillis();
-        Office[] result;
+        Space[] result;
         if (getFloorCount() > 1) {
             result = merge(sort(getFloor(0).getSpaces()), sort(getFloor(1).getSpaces()));
             for (int i = 2; i < getFloorCount(); i++) {
@@ -175,29 +175,29 @@ public class OfficeBuilding {
         return result;
     }
 
-    private Office[] sort(Office[] offices) {
-        if (offices.length > 2) {
-            Office[] leftPart = new Office[offices.length / 2];
+    private Space[] sort(Space[] spaces) {
+        if (spaces.length > 2) {
+            Space[] leftPart = new Space[spaces.length / 2];
             for (int i = 0; i < leftPart.length; i++) {
-                leftPart[i] = offices[i];
+                leftPart[i] = spaces[i];
             }
-            Office[] rightPart = new Office[offices.length - leftPart.length];
-            for (int i = leftPart.length; i < offices.length; i++) {
-                rightPart[i - leftPart.length] = offices[i];
+            Space[] rightPart = new Space[spaces.length - leftPart.length];
+            for (int i = leftPart.length; i < spaces.length; i++) {
+                rightPart[i - leftPart.length] = spaces[i];
             }
             return merge(sort(leftPart), sort(rightPart));
-        } else if (offices.length == 2) {
-            if (offices[0].getArea() < offices[1].getArea()) {
-                Office t = offices[0];
-                offices[0] = offices[1];
-                offices[1] = t;
+        } else if (spaces.length == 2) {
+            if (spaces[0].getArea() < spaces[1].getArea()) {
+                Space t = spaces[0];
+                spaces[0] = spaces[1];
+                spaces[1] = t;
             }
         }
-        return offices;
+        return spaces;
     }
 
-    private Office[] merge(Office[] leftPart, Office[] rightPart) {
-        Office[] result = new Office[leftPart.length + rightPart.length];
+    private Space[] merge(Space[] leftPart, Space[] rightPart) {
+        Space[] result = new Space[leftPart.length + rightPart.length];
         int leftPartCount = 0;
         int rightPartCount = 0;
         int i = 0;
