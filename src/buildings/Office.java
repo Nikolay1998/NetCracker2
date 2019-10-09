@@ -38,4 +38,12 @@ public class Office {
     public void setRoomCount(int roomCount) {
         this.roomCount = roomCount;
     }
+
+    @Override
+    public String toString() {
+        return "Office{" +
+                "area=" + area +
+                ", roomCount=" + roomCount +
+                '}';
+    }
 }

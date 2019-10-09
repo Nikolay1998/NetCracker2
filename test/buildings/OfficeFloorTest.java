@@ -62,13 +62,22 @@ public class OfficeFloorTest {
     }
 
     @Test
+    public void getOfficeCountTest(){
+        assertEquals(size, floor.getOfficesCount());
+    } 
+
+    @Test
     public void addAndDeleteOfficeTest() {
-        for (int i = 0; i < size + 1; i++) {
+        for (int i = 0; i < size; i++) {
             floor.addOffice(i, new Office());
             assertEquals("on " + i + " iteration", 1, floor.getOffice(i).getRoomCount());
             floor.deleteOffice(i);
         }
-        floor.addOffice(size + 1, new Office());
+        Office lastOffice = new Office(130, 1);
+        floor.addOffice(size, lastOffice);
+        assertEquals(lastOffice, floor.getOffice(size));
         assertEquals(size + 1, floor.getOfficesCount());
     }
+
+
 }

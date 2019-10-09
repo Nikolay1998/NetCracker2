@@ -158,6 +158,72 @@ public class OfficeBuilding {
         return getFloor(floorWithBestFlatNum).getBestSpace();
     }
 
+    public Office[] getSortedByAreaOffices(){
+        long start = System.currentTimeMillis();
+        Office[] result;
+        if (getFloorCount() > 1) {
+            result = merge(sort(getFloor(0).getOffices()), sort(getFloor(1).getOffices()));
+            for (int i = 2; i < getFloorCount(); i++) {
+                result = merge(result, sort(getFloor(i).getOffices()));
+            }
+        } else {
+            result = sort(getFloor(0).getOffices());
+        }
+        long finish = System.currentTimeMillis();
+        long timeConsumedMillis = finish - start;
+        System.out.println("Merge sort done in " + timeConsumedMillis + " ms.");
+        return result;
+    }
 
+    private Office[] sort(Office[] offices) {
+        if (offices.length > 2) {
+            Office[] leftPart = new Office[offices.length / 2];
+            for (int i = 0; i < leftPart.length; i++) {
+                leftPart[i] = offices[i];
+            }
+            Office[] rightPart = new Office[offices.length - leftPart.length];
+            for (int i = leftPart.length; i < offices.length; i++) {
+                rightPart[i - leftPart.length] = offices[i];
+            }
+            return merge(sort(leftPart), sort(rightPart));
+        } else if (offices.length == 2) {
+            if (offices[0].getArea() < offices[1].getArea()) {
+                Office t = offices[0];
+                offices[0] = offices[1];
+                offices[1] = t;
+            }
+        }
+        return offices;
+    }
+
+    private Office[] merge(Office[] leftPart, Office[] rightPart) {
+        Office[] result = new Office[leftPart.length + rightPart.length];
+        int leftPartCount = 0;
+        int rightPartCount = 0;
+        int i = 0;
+        while (leftPartCount < leftPart.length && rightPartCount < rightPart.length) {
+            if (leftPart[leftPartCount].getArea() > rightPart[rightPartCount].getArea()) {
+                result[i] = leftPart[leftPartCount];
+                leftPartCount++;
+            } else {
+                result[i] = rightPart[rightPartCount];
+                rightPartCount++;
+            }
+            i++;
+        }
+        if (leftPartCount == leftPart.length) {
+            for (; i < result.length; i++) {
+                result[i] = rightPart[rightPartCount];
+                rightPartCount++;
+            }
+        }
+        if (rightPartCount == rightPart.length) {
+            for (; i < result.length; i++) {
+                result[i] = leftPart[leftPartCount];
+                leftPartCount++;
+            }
+        }
+        return result;
+    }
 
 }
