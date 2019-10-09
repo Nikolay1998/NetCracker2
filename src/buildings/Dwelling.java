@@ -1,6 +1,6 @@
 package buildings;
 
-public class Dwelling implements Building{
+public class Dwelling implements Building {
     private Floor[] floors;
 
     public Dwelling(int floorCount, int[] flatCount) {
@@ -50,14 +50,28 @@ public class Dwelling implements Building{
     }
 
     public Floor getFloor(int num) {
+
+        if(num >= getFloorCount()){
+            throw new FloorIndexOutOfBoundException();
+        }
+
+
         return floors[num];
     }
 
     public void setFloor(int num, Floor floor) {
+
+        if(num >= getFloorCount()){
+            throw new FloorIndexOutOfBoundException();
+        }
+
         floors[num] = floor;
     }
 
     public Space getSpace(int num) {
+        if (num >= getSpaceCount()) {
+            throw new SpaceIndexOutOfBoundsException();
+        }
         int i = 0;
         while (num >= floors[i].getSpaceCount()) {
             num -= floors[i++].getSpaceCount();
@@ -66,6 +80,11 @@ public class Dwelling implements Building{
     }
 
     public void setSpace(int num, Space newSpace) {
+
+        if (num >= getSpaceCount()) {
+            throw new SpaceIndexOutOfBoundsException();
+        }
+
         int i = 0;
         while (num >= floors[i].getSpaceCount()) {
             num -= floors[i++].getSpaceCount();
@@ -74,6 +93,11 @@ public class Dwelling implements Building{
     }
 
     public void addSpace(int num, Space space) {
+
+        if (num > getSpaceCount()) {
+            throw new SpaceIndexOutOfBoundsException();
+        }
+
         int i = 0;
         while (num > floors[i].getSpaceCount()) {
             num -= floors[i++].getSpaceCount();
@@ -82,6 +106,11 @@ public class Dwelling implements Building{
     }
 
     public void deleteSpace(int num) {
+
+        if(num >= getSpaceCount()){
+            throw new SpaceIndexOutOfBoundsException();
+        }
+
         int i = 0;
         while (num > floors[i].getSpaceCount()) {
             num -= floors[i++].getSpaceCount();

@@ -1,10 +1,10 @@
 package buildings;
 
 public class OfficeBuilding implements Building{
-    NodeFloor head;
+    TwoLinkNode head;
 
-    private NodeFloor getNode(int num) {
-        NodeFloor currentNode = head;
+    private TwoLinkNode getNode(int num) {
+        TwoLinkNode currentNode = head;
         for (int i = 0; i < num; i++) {
             currentNode = currentNode.getNext();
         }
@@ -12,52 +12,52 @@ public class OfficeBuilding implements Building{
     }
 
     private void addNode(int num, Floor floor) {
-        NodeFloor currentNode = head;
+        TwoLinkNode currentNode = head;
         for (int i = 0; i < num - 1; i++) {
             currentNode = currentNode.getNext();
         }
-        NodeFloor nextNode = currentNode.getNext();
-        NodeFloor newNode = new NodeFloor(floor, nextNode, currentNode); // 0?
+        TwoLinkNode nextNode = currentNode.getNext();
+        TwoLinkNode newNode = new TwoLinkNode(floor, nextNode, currentNode); // 0?
         currentNode.setNext(newNode);
         nextNode.setPrev(newNode);
     }
 
     private void deleteNode(int num){
-        NodeFloor currentNode = head;
+        TwoLinkNode currentNode = head;
         for (int i = 0; i < num - 1; i++) {
             currentNode = currentNode.getNext();
         }
-        NodeFloor next = currentNode.getNext().getNext();
+        TwoLinkNode next = currentNode.getNext().getNext();
         currentNode.setNext(next);
         next.setPrev(currentNode);
     }
 
     public OfficeBuilding(int floorCount, int[] officeCounts){
-        head = new NodeFloor(new OfficeFloor(officeCounts[0]));
+        head = new TwoLinkNode(new OfficeFloor(officeCounts[0]));
         for(int i = 1; i < floorCount; i++){
-            NodeFloor prevNode = getNode(i-1);
-            NodeFloor newNode = new NodeFloor(new OfficeFloor(officeCounts[i]), prevNode);
+            TwoLinkNode prevNode = getNode(i-1);
+            TwoLinkNode newNode = new TwoLinkNode(new OfficeFloor(officeCounts[i]), prevNode);
             prevNode.setNext(newNode);
         }
-        NodeFloor lastNode = getNode(floorCount - 1);
+        TwoLinkNode lastNode = getNode(floorCount - 1);
         lastNode.setNext(head);
         head.setPrev(lastNode);
     }
 
     public OfficeBuilding(Floor[] floorArray) {
-        head = new NodeFloor(floorArray[0]);
+        head = new TwoLinkNode(floorArray[0]);
         for (int i = 1; i < floorArray.length; i++) {
-            NodeFloor prevNode = getNode(i-1);
-            NodeFloor newNode = new NodeFloor(floorArray[i], prevNode);
+            TwoLinkNode prevNode = getNode(i-1);
+            TwoLinkNode newNode = new TwoLinkNode(floorArray[i], prevNode);
             prevNode.setNext(newNode);
         }
-        NodeFloor lastNode = getNode(floorArray.length - 1);
+        TwoLinkNode lastNode = getNode(floorArray.length - 1);
         lastNode.setNext(head);
         head.setPrev(lastNode);
     }
 
     public int getFloorCount(){
-        NodeFloor currentNode = head.getNext();
+        TwoLinkNode currentNode = head.getNext();
         int counter = 1;
         while (currentNode != head) {
             currentNode = currentNode.getNext();
@@ -68,7 +68,7 @@ public class OfficeBuilding implements Building{
 
     public int getSpaceCount(){
         int counter = head.getFloor().getSpaceCount();
-        NodeFloor currentNode = head.getNext();
+        TwoLinkNode currentNode = head.getNext();
         while (currentNode != head){
             counter += currentNode.getFloor().getSpaceCount();
             currentNode = currentNode.getNext();
@@ -78,7 +78,7 @@ public class OfficeBuilding implements Building{
 
     public double getArea(){
         double area = head.getFloor().getArea();
-        NodeFloor currentNode = head.getNext();
+        TwoLinkNode currentNode = head.getNext();
         while (currentNode != head){
             area += currentNode.getFloor().getArea();
             currentNode = currentNode.getNext();
@@ -88,7 +88,7 @@ public class OfficeBuilding implements Building{
 
     public int getRoomCount(){
         int counter = head.getFloor().getRoomCount();
-        NodeFloor currentNode = head.getNext();
+        TwoLinkNode currentNode = head.getNext();
         while (currentNode != head){
             counter += currentNode.getFloor().getRoomCount();
             currentNode = currentNode.getNext();
@@ -105,14 +105,29 @@ public class OfficeBuilding implements Building{
     }
 
     public Floor getFloor(int num){
+
+        if(num >= getFloorCount()){
+            throw new FloorIndexOutOfBoundException();
+        }
+
         return getNode(num).getFloor();
     }
 
     public void setFloor(int num, Floor floor){
+
+        if(num >= getFloorCount()){
+            throw new FloorIndexOutOfBoundException();
+        }
+
         getNode(num).setFloor(floor);
     }
 
     public Space getSpace(int num){
+
+        if(num >= getSpaceCount()){
+            throw new SpaceIndexOutOfBoundsException();
+        }
+
         int i = 0;
         while (num >= getFloor(i).getSpaceCount()) {
             num -= getFloor(i++).getSpaceCount();
@@ -121,6 +136,11 @@ public class OfficeBuilding implements Building{
     }
 
     public void setSpace(int num, Space newSpace) {
+
+        if(num >= getSpaceCount()){
+            throw new SpaceIndexOutOfBoundsException();
+        }
+
         int i = 0;
         while (num >= getFloor(i).getSpaceCount()) {
             num -= getFloor(i++).getSpaceCount();
@@ -129,6 +149,11 @@ public class OfficeBuilding implements Building{
     }
 
     public void addSpace(int num, Space newSpace) {
+
+        if(num > getSpaceCount()){
+            throw new SpaceIndexOutOfBoundsException();
+        }
+
         int i = 0;
         while (num >= getFloor(i).getSpaceCount()) {
             num -= getFloor(i++).getSpaceCount();
@@ -137,6 +162,11 @@ public class OfficeBuilding implements Building{
     }
 
     public void deleteSpace(int num) {
+
+        if(num >= getSpaceCount()){
+            throw new SpaceIndexOutOfBoundsException();
+        }
+
         int i = 0;
         while (num >= getFloor(i).getSpaceCount()) {
             num -= getFloor(i++).getSpaceCount();

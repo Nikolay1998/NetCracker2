@@ -19,7 +19,7 @@ public class DwellingTest {
         assertNotNull(building);
         Flat[] expectedFlats = new Flat[TEST_SIZE];
         for (int i = 0; i < TEST_SIZE; i++) {
-            expectedFlats[i] = new Flat(i * 10, i);
+            expectedFlats[i] = new Flat(i * 10 + 1, i);
             building.setSpace(i, expectedFlats[i]);
         }
 
@@ -45,12 +45,22 @@ public class DwellingTest {
     @Test
     public void testAddAndDeleteFlat() {
         for (int i = 0; i < TEST_SIZE + 1; i++) {
-            Flat addingFlat = new Flat(i * 20, i * 2);
+            Flat addingFlat = new Flat(i * 20 + 1, i * 2);
             building.addSpace(i, addingFlat);
             //System.out.println(addingFlat);
             assertEquals("Квартира добавленна некоркетно", addingFlat, building.getSpace(i));
             building.deleteSpace(i);
         }
+    }
+
+    @Test(expected = SpaceIndexOutOfBoundsException.class)
+    public void uncorrectSetSpaceTest(){
+        building.setSpace(TEST_SIZE, new Flat());
+    }
+
+    @Test(expected = InvalidSpaceAreaException.class)
+    public void uncorrectSetNewSpaceTest(){
+        building.setSpace(TEST_SIZE, new Flat(0));
     }
 
     @Test
@@ -64,7 +74,7 @@ public class DwellingTest {
         Flat[] originalFlats = new Flat[TEST_SIZE];
         Flat[] expectedFlats = new Flat[TEST_SIZE];
         for (int i = 0; i < TEST_SIZE; i++) {
-            originalFlats[i] = new Flat((TEST_SIZE - i - 1) * 10);
+            originalFlats[i] = new Flat((TEST_SIZE - i - 1) * 10 + 1);
             expectedFlats[i] = originalFlats[i];
         }
 

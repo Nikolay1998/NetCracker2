@@ -1,15 +1,15 @@
 package buildings;
 
-public class Node {
+public class OneLinkNode {
     private Space space;
-    private Node next;
+    private OneLinkNode next;
 
-    public Node(Space space, Node next) {
+    public OneLinkNode(Space space, OneLinkNode next) {
         this.space = space;
         this.next = next;
     }
 
-    public Node(Space space) {
+    public OneLinkNode(Space space) {
         this.space = space;
     }
 
@@ -17,11 +17,11 @@ public class Node {
         return space;
     }
 
-    public Node getNext() {
+    public OneLinkNode getNext() {
         return next;
     }
 
-    public void setNext(Node next) {
+    public void setNext(OneLinkNode next) {
         this.next = next;
     }
 

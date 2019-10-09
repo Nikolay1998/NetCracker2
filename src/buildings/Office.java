@@ -13,12 +13,26 @@ public class Office implements Space{
     }
 
     public Office(double area) {
+
+        if(area <= 0){
+            throw new InvalidSpaceAreaException();
+        }
+
         this.area = area;
         this.roomCount = DEF_ROOM_COUNT;
 
     }
 
     public Office(double area, int roomCount) {
+
+        if(area <= 0){
+            throw new InvalidSpaceAreaException();
+        }
+
+        if(roomCount <= 0) {
+            throw new InvalidRoomsCountException();
+        }
+
         this.area = area;
         this.roomCount = roomCount;
     }
@@ -28,6 +42,11 @@ public class Office implements Space{
     }
 
     public void setArea(double area) {
+
+        if(area <= 0){
+            throw new InvalidSpaceAreaException();
+        }
+
         this.area = area;
     }
 
@@ -36,6 +55,10 @@ public class Office implements Space{
     }
 
     public void setRoomCount(int roomCount) {
+        if(roomCount <= 0) {
+            throw new InvalidRoomsCountException();
+        }
+
         this.roomCount = roomCount;
     }
 

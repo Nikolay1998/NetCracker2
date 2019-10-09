@@ -12,11 +12,22 @@ public class Flat implements Space{
     }
 
     public Flat(double area){
+        if(area <= 0){
+            throw new InvalidSpaceAreaException();
+        }
         this.area = area;
         roomCount = DEF_ROOM_COUNT;
     }
 
     public Flat(double area, int roomCount){
+        if(area <= 0){
+            throw new InvalidSpaceAreaException();
+        }
+
+        if(roomCount <= 0) {
+            throw new InvalidRoomsCountException();
+        }
+
         this.area = area;
         this.roomCount = roomCount;
     }
@@ -30,10 +41,19 @@ public class Flat implements Space{
     }
 
     public void setRoomCount(int roomCount) {
+        if(roomCount <= 0) {
+            throw new InvalidRoomsCountException();
+        }
+
         this.roomCount = roomCount;
     }
 
     public void setArea(double area) {
+
+        if(area <= 0){
+            throw new InvalidSpaceAreaException();
+        }
+
         this.area = area;
     }
 

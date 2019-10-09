@@ -39,14 +39,24 @@ public class DwellingFloor implements Floor{
     }
 
     public Space getSpace(int num) {
+        if(num >= getSpaceCount()){
+            throw new SpaceIndexOutOfBoundsException();
+        }
         return spaces[num];
     }
 
     public void setSpace(int num, Space newSpace) {
+        if(num >= getSpaceCount()){
+            throw new SpaceIndexOutOfBoundsException();
+        }
         spaces[num] = newSpace;
     }
 
     public void addSpace(int num, Space newSpace) {
+        if(num > getSpaceCount()){
+            throw new SpaceIndexOutOfBoundsException();
+        }
+
         Space[] newSpaces = new Space[spaces.length + 1];
         int i = 0;
         while (i < num) {
@@ -63,6 +73,10 @@ public class DwellingFloor implements Floor{
     }
 
     public void deleteSpace(int num) {
+        if(num >= getSpaceCount()){
+            throw new SpaceIndexOutOfBoundsException();
+        }
+
         Space[] newSpaces = new Space[spaces.length - 1];
         int i = 0;
         while (i < num) {

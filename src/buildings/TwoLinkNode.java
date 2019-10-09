@@ -1,22 +1,22 @@
 package buildings;
 
-public class NodeFloor {
+public class TwoLinkNode {
     private Floor floor;
-    private NodeFloor next;
-    private NodeFloor prev;
+    private TwoLinkNode next;
+    private TwoLinkNode prev;
 
-    public NodeFloor(Floor floor, NodeFloor next, NodeFloor prev) {
+    public TwoLinkNode(Floor floor, TwoLinkNode next, TwoLinkNode prev) {
         this.floor = floor;
         this.next = next;
         this.prev = prev;
     }
 
-    public NodeFloor(Floor floor, NodeFloor prev) {
+    public TwoLinkNode(Floor floor, TwoLinkNode prev) {
         this.floor = floor;
         this.prev = prev;
     }
 
-    public NodeFloor(Floor floor) {
+    public TwoLinkNode(Floor floor) {
         this.floor = floor;
     }
 
@@ -28,19 +28,19 @@ public class NodeFloor {
         this.floor = floor;
     }
 
-    public NodeFloor getNext() {
+    public TwoLinkNode getNext() {
         return next;
     }
 
-    public void setNext(NodeFloor next) {
+    public void setNext(TwoLinkNode next) {
         this.next = next;
     }
 
-    public NodeFloor getPrev() {
+    public TwoLinkNode getPrev() {
         return prev;
     }
 
-    public void setPrev(NodeFloor prev) {
+    public void setPrev(TwoLinkNode prev) {
         this.prev = prev;
     }
 }
