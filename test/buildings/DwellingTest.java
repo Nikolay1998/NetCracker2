@@ -19,7 +19,7 @@ public class DwellingTest {
         assertNotNull(building);
         Flat[] expectedFlats = new Flat[TEST_SIZE];
         for (int i = 0; i < TEST_SIZE; i++) {
-            expectedFlats[i] = new Flat(i * 10 + 1, i);
+            expectedFlats[i] = new Flat(i * 10 + 1, i+1);
             building.setSpace(i, expectedFlats[i]);
         }
 
@@ -45,7 +45,7 @@ public class DwellingTest {
     @Test
     public void testAddAndDeleteFlat() {
         for (int i = 0; i < TEST_SIZE + 1; i++) {
-            Flat addingFlat = new Flat(i * 20 + 1, i * 2);
+            Flat addingFlat = new Flat(i * 20 + 1, i * 2 + 1);
             building.addSpace(i, addingFlat);
             //System.out.println(addingFlat);
             assertEquals("Квартира добавленна некоркетно", addingFlat, building.getSpace(i));

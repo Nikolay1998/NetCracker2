@@ -42,7 +42,7 @@ public class OfficeBuildingTest {
         Office[] originalOffices = new Office[building.getSpaceCount()];
         Office[] expectedOffices = new Office[building.getSpaceCount()];
         for(int i = 0; i < building.getSpaceCount(); i++){
-            originalOffices[i] = new Office((building.getSpaceCount() - i - 1) * 10);
+            originalOffices[i] = new Office((building.getSpaceCount() - i - 1) * 10 + 1);
             expectedOffices[i] = originalOffices[i];
         }
 
