@@ -20,7 +20,7 @@ public class OfficeFloorTest {
     }
 
     @Test
-    public void getOfficesCountTest() {
+    public void getSpaceCountTest() {
         assertEquals(size, floor.getSpaceCount());
     }
 
@@ -61,10 +61,6 @@ public class OfficeFloorTest {
         }
     }
 
-    @Test
-    public void getOfficeCountTest(){
-        assertEquals(size, floor.getSpaceCount());
-    } 
 
     @Test
     public void addAndDeleteOfficeTest() {

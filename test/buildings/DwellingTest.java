@@ -25,7 +25,7 @@ public class DwellingTest {
 
         for (int i = 0; i < 12; i++) {
             Space actualSpace = building.getSpace(i);
-            assertEquals("Квартиры отличаются", expectedFlats[i], actualSpace);
+            assertEquals("Помещения отличаются", expectedFlats[i], actualSpace);
         }
     }
 
@@ -34,13 +34,6 @@ public class DwellingTest {
         new Dwelling(4, new int[]{3, 1, 4});
     }
 
-   /* @Test
-    public void testGetAndSetFlat() {
-
-
-    }
-
-    */
 
     @Test
     public void testAddAndDeleteFlat() {
@@ -66,11 +59,11 @@ public class DwellingTest {
     @Test
     public void testGetBestSpace() {
         Space expectedBestSpace = building.getSpace(TEST_SIZE - 1);
-        assertEquals("Поиск наибольшей по площади квартиры работает некоректно", expectedBestSpace, building.getBestSpace());
+        assertEquals("Поиск наибольшего по площади помещения работает некоректно", expectedBestSpace, building.getBestSpace());
     }
 
     @Test
-    public void testSortFlatsbyArea() {
+    public void testSortSpacesbyArea() {
         Flat[] originalFlats = new Flat[TEST_SIZE];
         Flat[] expectedFlats = new Flat[TEST_SIZE];
         for (int i = 0; i < TEST_SIZE; i++) {
