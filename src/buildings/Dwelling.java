@@ -28,7 +28,7 @@ public class Dwelling {
     public int getFlatCount() {
         int result = 0;
         for (int i = 0; i < floors.length; i++) {
-            result += floors[i].getFlatCount();
+            result += floors[i].getSpaceCount();
         }
         return result;
     }
@@ -59,32 +59,32 @@ public class Dwelling {
 
     public Flat getFlat(int num) {
         int i = 0;
-        while (num >= floors[i].getFlatCount()) {
-            num -= floors[i++].getFlatCount();
+        while (num >= floors[i].getSpaceCount()) {
+            num -= floors[i++].getSpaceCount();
         }
         return floors[i].getFlat(num);
     }
 
     public void setFlat(int num, Flat newFlat) {
         int i = 0;
-        while (num >= floors[i].getFlatCount()) {
-            num -= floors[i++].getFlatCount();
+        while (num >= floors[i].getSpaceCount()) {
+            num -= floors[i++].getSpaceCount();
         }
         floors[i].setFlat(num, newFlat);
     }
 
     public void addFlat(int num, Flat flat) {
         int i = 0;
-        while (num > floors[i].getFlatCount()) {
-            num -= floors[i++].getFlatCount();
+        while (num > floors[i].getSpaceCount()) {
+            num -= floors[i++].getSpaceCount();
         }
         floors[i].addFlat(num, flat);
     }
 
     public void deleteFlat(int num) {
         int i = 0;
-        while (num > floors[i].getFlatCount()) {
-            num -= floors[i++].getFlatCount();
+        while (num > floors[i].getSpaceCount()) {
+            num -= floors[i++].getSpaceCount();
         }
         floors[i].deleteFlat(num);
     }
@@ -93,7 +93,7 @@ public class Dwelling {
         double bestArea = 0;
         int floorWithBestFlatNum = 0;
         for (int i = 0; i < floors.length; i++) {
-            if (floors[i].getFlats().length > 0) {
+            if (floors[i].getSpaces().length > 0) {
                 if (floors[i].getBestSpace().getArea() > bestArea) {
                     bestArea = floors[i].getBestSpace().getArea();
                     floorWithBestFlatNum = i;
@@ -107,12 +107,12 @@ public class Dwelling {
         long start = System.currentTimeMillis();
         Flat[] result;
         if (floors.length > 1) {
-            result = merge(sort(floors[0].getFlats()), sort(floors[1].getFlats()));
+            result = merge(sort(floors[0].getSpaces()), sort(floors[1].getSpaces()));
             for (int i = 2; i < floors.length; i++) {
-                result = merge(result, sort(floors[i].getFlats()));
+                result = merge(result, sort(floors[i].getSpaces()));
             }
         } else {
-            result = sort(floors[0].getFlats());
+            result = sort(floors[0].getSpaces());
         }
         long finish = System.currentTimeMillis();
         long timeConsumedMillis = finish - start;

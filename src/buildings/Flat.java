@@ -1,6 +1,6 @@
 package buildings;
 
-public class Flat {
+public class Flat implements Space{
     private double area;
     private int roomCount;
     public static final double DEF_AREA = 50.0;

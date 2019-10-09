@@ -67,10 +67,10 @@ public class OfficeBuilding {
     }
 
     public int getOfficeCount(){
-        int counter = head.getFloor().getOfficesCount();
+        int counter = head.getFloor().getSpaceCount();
         NodeFloor currentNode = head.getNext();
         while (currentNode != head){
-            counter += currentNode.getFloor().getOfficesCount();
+            counter += currentNode.getFloor().getSpaceCount();
             currentNode = currentNode.getNext();
         }
         return counter;
@@ -114,32 +114,32 @@ public class OfficeBuilding {
 
     public Office getOffice(int num){
         int i = 0;
-        while (num >= getFloor(i).getOfficesCount()) {
-            num -= getFloor(i++).getOfficesCount();
+        while (num >= getFloor(i).getSpaceCount()) {
+            num -= getFloor(i++).getSpaceCount();
         }
         return getFloor(i).getOffice(num);
     }
 
     public void setOffice(int num, Office newOffice) {
         int i = 0;
-        while (num >= getFloor(i).getOfficesCount()) {
-            num -= getFloor(i++).getOfficesCount();
+        while (num >= getFloor(i).getSpaceCount()) {
+            num -= getFloor(i++).getSpaceCount();
         }
         getFloor(i).setOffice(num, newOffice);
     }
 
     public void addOffice(int num, Office newOffice) {
         int i = 0;
-        while (num >= getFloor(i).getOfficesCount()) {
-            num -= getFloor(i++).getOfficesCount();
+        while (num >= getFloor(i).getSpaceCount()) {
+            num -= getFloor(i++).getSpaceCount();
         }
         getFloor(i).addOffice(num, newOffice);
     }
 
     public void deleteOffice(int num) {
         int i = 0;
-        while (num >= getFloor(i).getOfficesCount()) {
-            num -= getFloor(i++).getOfficesCount();
+        while (num >= getFloor(i).getSpaceCount()) {
+            num -= getFloor(i++).getSpaceCount();
         }
         getFloor(i).deleteOffice(num);
     }
@@ -148,7 +148,7 @@ public class OfficeBuilding {
         double bestArea = 0;
         int floorWithBestFlatNum = 0;
         for (int i = 0; i < getFloorCount(); i++) {
-            if (getFloor(i).getOfficesCount() > 0) {
+            if (getFloor(i).getSpaceCount() > 0) {
                 if (getFloor(i).getBestSpace().getArea() > bestArea) {
                     bestArea = getFloor(i).getBestSpace().getArea();
                     floorWithBestFlatNum = i;

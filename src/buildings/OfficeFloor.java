@@ -1,6 +1,6 @@
 package buildings;
 
-public class OfficeFloor {
+public class OfficeFloor implements Floor{
     Node head;
 
     private Node getNode(int num) {
@@ -60,7 +60,7 @@ public class OfficeFloor {
         getNode(size - 1).setNext(head);
     }
 
-    public int getOfficesCount() {
+    public int getSpaceCount() {
         Node currentNode = head.getNext();
         int counter = 1;
         while (currentNode != head) {
@@ -91,8 +91,8 @@ public class OfficeFloor {
     }
 
     public Office[] getOffices(){
-        Office[] offices = new Office[getOfficesCount()];
-        for(int i = 0; i < getOfficesCount(); i++){
+        Office[] offices = new Office[getSpaceCount()];
+        for(int i = 0; i < getSpaceCount(); i++){
             offices[i] = getOffice(i);
         }
         return offices;
@@ -115,10 +115,10 @@ public class OfficeFloor {
     }
 
     public Office getBestSpace() {
-        if(getOfficesCount()>0) {
+        if(getSpaceCount()>0) {
             double bestArea = 0;
             int bestOfficeNum = 0;
-            for (int i = 0; i < getOfficesCount(); i++) {
+            for (int i = 0; i < getSpaceCount(); i++) {
                 if (getOffice(i).getArea() > bestArea) {
                     bestArea = getOffice(i).getArea();
                     bestOfficeNum = i;
