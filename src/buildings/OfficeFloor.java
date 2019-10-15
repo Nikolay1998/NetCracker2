@@ -1,5 +1,7 @@
 package buildings;
 
+import java.util.Arrays;
+
 public class OfficeFloor implements Floor {
     OneLinkNode head;
 
@@ -144,5 +146,19 @@ public class OfficeFloor implements Floor {
             }
             return getSpace(bestSpaceNum);
         } else return null;
+    }
+
+    @Override
+    public boolean equals(Floor floor) {
+        if(!OfficeFloor.class.isInstance(floor)){
+            return false;
+        }
+        if(floor.getSpaceCount() != this.getSpaceCount()) {
+            return false;
+        }
+        for(int i = 0; i < this.getSpaceCount(); i++){
+            if(!this.getSpace(i).equals(floor.getSpace(i))) return false;
+        }
+        return true;
     }
 }

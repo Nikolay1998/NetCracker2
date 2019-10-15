@@ -64,4 +64,18 @@ public class Flat implements Space{
                 ", roomCount=" + roomCount +
                 '}';
     }
+
+    @Override
+    public boolean equals(Space space) {
+        if(!Flat.class.isInstance(space)){
+            return false;
+        }
+        if(space.getArea() != this.getArea()){
+            return false;
+        }
+        if(space.getRoomCount() != this.getRoomCount()){
+            return false;
+        }
+        return true;
+    }
 }

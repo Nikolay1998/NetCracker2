@@ -1,5 +1,7 @@
 package buildings;
 
+import java.util.Arrays;
+
 public class Dwelling implements Building {
     private Floor[] floors;
 
@@ -7,7 +9,7 @@ public class Dwelling implements Building {
         if (floorCount != flatCount.length) {
             throw new IllegalArgumentException();
         }
-        floors = new DwellingFloor[floorCount];
+        floors = new Floor[floorCount];
         for (int i = 0; i < floorCount; i++) {
             floors[i] = new DwellingFloor(flatCount[i]);
         }
@@ -199,6 +201,26 @@ public class Dwelling implements Building {
             }
         }
         return result;
+    }
+
+    @Override
+    public boolean equals(Building building) {
+        if (!Dwelling.class.isInstance(building)) {
+            return false;
+        }
+        if (building.getFloorCount() != this.getFloorCount()) {
+            return false;
+        }
+        for(int i = 0; i < this.getFloorCount(); i++){
+            if(!this.getFloor(i).equals(building.getFloor(i))) return false;
+        }
+        /*
+        if (!Arrays.equals(building.getFloors(), this.getFloors())) {
+            return false;
+        }
+
+         */
+        return true;
     }
 
 }

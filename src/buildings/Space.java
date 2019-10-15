@@ -5,4 +5,5 @@ public interface Space {
     void setRoomCount(int roomCount);
     double getArea();
     void setArea(double area);
+    boolean equals(Space space);
 }

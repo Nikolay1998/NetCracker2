@@ -1,6 +1,8 @@
 package buildings;
 
-public class OfficeBuilding implements Building{
+import java.util.Arrays;
+
+public class OfficeBuilding implements Building {
     TwoLinkNode head;
 
     private TwoLinkNode getNode(int num) {
@@ -22,7 +24,7 @@ public class OfficeBuilding implements Building{
         nextNode.setPrev(newNode);
     }
 
-    private void deleteNode(int num){
+    private void deleteNode(int num) {
         TwoLinkNode currentNode = head;
         for (int i = 0; i < num - 1; i++) {
             currentNode = currentNode.getNext();
@@ -32,10 +34,10 @@ public class OfficeBuilding implements Building{
         next.setPrev(currentNode);
     }
 
-    public OfficeBuilding(int floorCount, int[] officeCounts){
+    public OfficeBuilding(int floorCount, int[] officeCounts) {
         head = new TwoLinkNode(new OfficeFloor(officeCounts[0]));
-        for(int i = 1; i < floorCount; i++){
-            TwoLinkNode prevNode = getNode(i-1);
+        for (int i = 1; i < floorCount; i++) {
+            TwoLinkNode prevNode = getNode(i - 1);
             TwoLinkNode newNode = new TwoLinkNode(new OfficeFloor(officeCounts[i]), prevNode);
             prevNode.setNext(newNode);
         }
@@ -47,7 +49,7 @@ public class OfficeBuilding implements Building{
     public OfficeBuilding(Floor[] floorArray) {
         head = new TwoLinkNode(floorArray[0]);
         for (int i = 1; i < floorArray.length; i++) {
-            TwoLinkNode prevNode = getNode(i-1);
+            TwoLinkNode prevNode = getNode(i - 1);
             TwoLinkNode newNode = new TwoLinkNode(floorArray[i], prevNode);
             prevNode.setNext(newNode);
         }
@@ -56,7 +58,7 @@ public class OfficeBuilding implements Building{
         head.setPrev(lastNode);
     }
 
-    public int getFloorCount(){
+    public int getFloorCount() {
         TwoLinkNode currentNode = head.getNext();
         int counter = 1;
         while (currentNode != head) {
@@ -66,65 +68,65 @@ public class OfficeBuilding implements Building{
         return counter;
     }
 
-    public int getSpaceCount(){
+    public int getSpaceCount() {
         int counter = head.getFloor().getSpaceCount();
         TwoLinkNode currentNode = head.getNext();
-        while (currentNode != head){
+        while (currentNode != head) {
             counter += currentNode.getFloor().getSpaceCount();
             currentNode = currentNode.getNext();
         }
         return counter;
     }
 
-    public double getArea(){
+    public double getArea() {
         double area = head.getFloor().getArea();
         TwoLinkNode currentNode = head.getNext();
-        while (currentNode != head){
+        while (currentNode != head) {
             area += currentNode.getFloor().getArea();
             currentNode = currentNode.getNext();
         }
         return area;
     }
 
-    public int getRoomCount(){
+    public int getRoomCount() {
         int counter = head.getFloor().getRoomCount();
         TwoLinkNode currentNode = head.getNext();
-        while (currentNode != head){
+        while (currentNode != head) {
             counter += currentNode.getFloor().getRoomCount();
             currentNode = currentNode.getNext();
         }
         return counter;
     }
 
-    public Floor[] getFloors(){
+    public Floor[] getFloors() {
         Floor[] floors = new Floor[getFloorCount()];
-        for(int i = 0; i < getFloorCount(); i++){
+        for (int i = 0; i < getFloorCount(); i++) {
             floors[i] = getFloor(i);
         }
         return floors;
     }
 
-    public Floor getFloor(int num){
+    public Floor getFloor(int num) {
 
-        if(num >= getFloorCount()){
+        if (num >= getFloorCount()) {
             throw new FloorIndexOutOfBoundException();
         }
 
         return getNode(num).getFloor();
     }
 
-    public void setFloor(int num, Floor floor){
+    public void setFloor(int num, Floor floor) {
 
-        if(num >= getFloorCount()){
+        if (num >= getFloorCount()) {
             throw new FloorIndexOutOfBoundException();
         }
 
         getNode(num).setFloor(floor);
     }
 
-    public Space getSpace(int num){
+    public Space getSpace(int num) {
 
-        if(num >= getSpaceCount()){
+        if (num >= getSpaceCount()) {
             throw new SpaceIndexOutOfBoundsException();
         }
 
@@ -137,7 +139,7 @@ public class OfficeBuilding implements Building{
 
     public void setSpace(int num, Space newSpace) {
 
-        if(num >= getSpaceCount()){
+        if (num >= getSpaceCount()) {
             throw new SpaceIndexOutOfBoundsException();
         }
 
@@ -150,7 +152,7 @@ public class OfficeBuilding implements Building{
 
     public void addSpace(int num, Space newSpace) {
 
-        if(num > getSpaceCount()){
+        if (num > getSpaceCount()) {
             throw new SpaceIndexOutOfBoundsException();
         }
 
@@ -163,7 +165,7 @@ public class OfficeBuilding implements Building{
 
     public void deleteSpace(int num) {
 
-        if(num >= getSpaceCount()){
+        if (num >= getSpaceCount()) {
             throw new SpaceIndexOutOfBoundsException();
         }
 
@@ -188,7 +190,7 @@ public class OfficeBuilding implements Building{
         return getFloor(floorWithBestSpaceNum).getBestSpace();
     }
 
-    public Space[] getSortedByAreaSpaces(){
+    public Space[] getSortedByAreaSpaces() {
         long start = System.currentTimeMillis();
         Space[] result;
         if (getFloorCount() > 1) {
@@ -203,6 +205,27 @@ public class OfficeBuilding implements Building{
         long timeConsumedMillis = finish - start;
         System.out.println("Merge sort done in " + timeConsumedMillis + " ms.");
         return result;
+    }
+
+    @Override
+    public boolean equals(Building building) {
+        if (!OfficeBuilding.class.isInstance(building)) {
+            return false;
+        }
+        if (building.getFloorCount() != this.getFloorCount()) {
+            return false;
+        }
+        for (int i = 0; i < this.getFloorCount(); i++) {
+            if (!this.getFloor(i).equals(building.getFloor(i))) return false;
+        }
+        /*
+        if (!Arrays.equals(building.getFloors(), this.getFloors())) {
+            System.out.println("FloorEquals incorrect");
+            return false;
+        }
+
+         */
+        return true;
     }
 
     private Space[] sort(Space[] spaces) {

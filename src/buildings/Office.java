@@ -1,6 +1,6 @@
 package buildings;
 
-public class Office implements Space{
+public class Office implements Space {
     private double area;
     private int roomCount;
 
@@ -14,7 +14,7 @@ public class Office implements Space{
 
     public Office(double area) {
 
-        if(area <= 0){
+        if (area <= 0) {
             throw new InvalidSpaceAreaException();
         }
 
@@ -25,11 +25,11 @@ public class Office implements Space{
 
     public Office(double area, int roomCount) {
 
-        if(area <= 0){
+        if (area <= 0) {
             throw new InvalidSpaceAreaException();
         }
 
-        if(roomCount <= 0) {
+        if (roomCount <= 0) {
             throw new InvalidRoomsCountException();
         }
 
@@ -43,11 +43,26 @@ public class Office implements Space{
 
     public void setArea(double area) {
 
-        if(area <= 0){
+        if (area <= 0) {
             throw new InvalidSpaceAreaException();
         }
 
         this.area = area;
+    }
+
+    @Override
+    public boolean equals(Space space) {
+        if (!Office.class.isInstance(space)) {
+            return false;
+        }
+        if (space.getArea() != this.getArea()) {
+            return false;
+        }
+
+        if (space.getRoomCount() != this.getRoomCount()) {
+            return false;
+        }
+        return true;
     }
 
     public int getRoomCount() {
@@ -55,7 +70,7 @@ public class Office implements Space{
     }
 
     public void setRoomCount(int roomCount) {
-        if(roomCount <= 0) {
+        if (roomCount <= 0) {
             throw new InvalidRoomsCountException();
         }
 

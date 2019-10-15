@@ -10,4 +10,5 @@ public interface Floor {
     void addSpace(int num, Space space);
     void deleteSpace(int num);
     Space getBestSpace();
+    boolean equals(Floor floor);
 }

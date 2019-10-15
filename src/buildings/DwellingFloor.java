@@ -1,10 +1,12 @@
 package buildings;
 
+import java.util.Arrays;
+
 public class DwellingFloor implements Floor{
     private Space[] spaces;
 
     public DwellingFloor(int flatCount) {
-        spaces = new Flat[flatCount];
+        spaces = new Space[flatCount];
         for (int i = 0; i < flatCount; i++) {
             spaces[i] = new Flat();
         }
@@ -104,5 +106,19 @@ public class DwellingFloor implements Floor{
             return spaces[bestSpaceNum];
         }
         else return null;
+    }
+
+    @Override
+    public boolean equals(Floor floor) {
+        if(!DwellingFloor.class.isInstance(floor)){
+            return false;
+        }
+        if(floor.getSpaceCount() != this.getSpaceCount()) {
+            return false;
+        }
+        for(int i = 0; i < this.getSpaceCount(); i++){
+            if(!this.getSpace(i).equals(floor.getSpace(i))) return false;
+        }
+        return true;
     }
 }

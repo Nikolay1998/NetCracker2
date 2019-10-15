@@ -14,4 +14,5 @@ public interface Building {
     void deleteSpace(int num);
     Space getBestSpace();
     Space[] getSortedByAreaSpaces();
+    boolean equals(Building building);
 }
