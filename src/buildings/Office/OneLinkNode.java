@@ -1,4 +1,6 @@
-package buildings;
+package buildings.Office;
+
+import buildings.Space;
 
 import java.io.Serializable;
 

@@ -1,6 +1,8 @@
-package buildings;
+package buildings.Dwelling;
 
-import java.util.Arrays;
+import buildings.*;
+import buildings.Exceptions.FloorIndexOutOfBoundException;
+import buildings.Exceptions.SpaceIndexOutOfBoundsException;
 
 public class Dwelling implements Building {
     private Floor[] floors;

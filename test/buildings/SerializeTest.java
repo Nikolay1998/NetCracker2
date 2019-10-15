@@ -1,11 +1,14 @@
 package buildings;
 
-import org.junit.Before;
+import buildings.Dwelling.Dwelling;
+import buildings.Dwelling.DwellingFloor;
+import buildings.Dwelling.Flat;
+import buildings.Office.Office;
+import buildings.Office.OfficeBuilding;
+import buildings.Office.OfficeFloor;
 import org.junit.Test;
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.Collections;
 
 import static org.junit.Assert.*;
 

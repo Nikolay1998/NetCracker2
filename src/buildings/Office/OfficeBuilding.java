@@ -1,6 +1,8 @@
-package buildings;
+package buildings.Office;
 
-import java.util.Arrays;
+import buildings.*;
+import buildings.Exceptions.FloorIndexOutOfBoundException;
+import buildings.Exceptions.SpaceIndexOutOfBoundsException;
 
 public class OfficeBuilding implements Building {
     TwoLinkNode head;

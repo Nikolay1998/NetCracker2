@@ -1,5 +1,9 @@
 package buildings;
 
+import buildings.Dwelling.Dwelling;
+import buildings.Dwelling.Flat;
+import buildings.Exceptions.InvalidSpaceAreaException;
+import buildings.Exceptions.SpaceIndexOutOfBoundsException;
 import org.junit.Before;
 import org.junit.Test;
 

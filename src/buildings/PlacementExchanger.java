@@ -1,5 +1,8 @@
 package buildings;
 
+import buildings.Exceptions.InexchangeableFloorsException;
+import buildings.Exceptions.InexchangeableSpacesException;
+
 public class PlacementExchanger {
     public static boolean isValidSpaceReplace(Space first, Space second){
         if(first.getArea() == second.getArea() && first.getRoomCount() == second.getRoomCount()){
@@ -15,7 +18,7 @@ public class PlacementExchanger {
         return false;
     }
 
-    public static void exchangeFloorRooms(Floor floor1, int index1, Floor floor2, int index2) throws InexchangeableSpacesException{
+    public static void exchangeFloorRooms(Floor floor1, int index1, Floor floor2, int index2) throws InexchangeableSpacesException {
         if(index1 >= floor1.getSpaceCount() || index2 >= floor2.getSpaceCount()){
             throw new IllegalArgumentException();
         }

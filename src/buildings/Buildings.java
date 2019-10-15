@@ -1,5 +1,12 @@
 package buildings;
 
+import buildings.Dwelling.Dwelling;
+import buildings.Dwelling.DwellingFloor;
+import buildings.Dwelling.Flat;
+import buildings.Office.Office;
+import buildings.Office.OfficeBuilding;
+import buildings.Office.OfficeFloor;
+
 import java.io.*;
 
 public class Buildings {

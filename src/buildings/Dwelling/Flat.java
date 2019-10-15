@@ -1,6 +1,10 @@
-package buildings;
+package buildings.Dwelling;
 
-public class Flat implements Space{
+import buildings.Exceptions.InvalidRoomsCountException;
+import buildings.Exceptions.InvalidSpaceAreaException;
+import buildings.Space;
+
+public class Flat implements Space {
     private double area;
     private int roomCount;
     public static final double DEF_AREA = 50.0;

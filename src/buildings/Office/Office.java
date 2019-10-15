@@ -1,4 +1,8 @@
-package buildings;
+package buildings.Office;
+
+import buildings.Exceptions.InvalidRoomsCountException;
+import buildings.Exceptions.InvalidSpaceAreaException;
+import buildings.Space;
 
 public class Office implements Space {
     private double area;
