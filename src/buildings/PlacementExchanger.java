@@ -17,7 +17,7 @@ public class PlacementExchanger {
 
     public static void exchangeFloorRooms(Floor floor1, int index1, Floor floor2, int index2) throws InexchangeableSpacesException{
         if(index1 >= floor1.getSpaceCount() || index2 >= floor2.getSpaceCount()){
-            //toDO: throw exception
+            throw new IllegalArgumentException();
         }
         if(!isValidSpaceReplace(floor1.getSpace(index1), floor2.getSpace(index2))){
             throw new InexchangeableSpacesException();

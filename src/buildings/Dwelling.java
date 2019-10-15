@@ -214,12 +214,6 @@ public class Dwelling implements Building {
         for(int i = 0; i < this.getFloorCount(); i++){
             if(!this.getFloor(i).equals(building.getFloor(i))) return false;
         }
-        /*
-        if (!Arrays.equals(building.getFloors(), this.getFloors())) {
-            return false;
-        }
-
-         */
         return true;
     }
 

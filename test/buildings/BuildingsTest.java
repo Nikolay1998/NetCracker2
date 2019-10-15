@@ -38,7 +38,7 @@ public class BuildingsTest {
                 Buildings.outputBuilding(building, out);
                 Building readBuilding = Buildings.inputBuilding(in);
 
-                assertEquals(true, readBuilding.equals(building));
+                assertTrue(readBuilding.equals(building));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 System.out.println("File not found");
@@ -74,7 +74,7 @@ public class BuildingsTest {
             ) {
                 Buildings.writeBuilding(building, out);
                 Building readBuilding = Buildings.readBuilding(in);
-                assertEquals(true, readBuilding.equals(building));
+                assertTrue(readBuilding.equals(building));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 System.out.println("File not found");

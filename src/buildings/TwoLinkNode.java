@@ -1,6 +1,8 @@
 package buildings;
 
-public class TwoLinkNode {
+import java.io.Serializable;
+
+public class TwoLinkNode implements Serializable {
     private Floor floor;
     private TwoLinkNode next;
     private TwoLinkNode prev;

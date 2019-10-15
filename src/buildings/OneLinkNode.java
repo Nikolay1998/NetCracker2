@@ -1,6 +1,8 @@
 package buildings;
 
-public class OneLinkNode {
+import java.io.Serializable;
+
+public class OneLinkNode implements Serializable {
     private Space space;
     private OneLinkNode next;
 

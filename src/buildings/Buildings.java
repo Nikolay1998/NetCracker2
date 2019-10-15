@@ -16,6 +16,7 @@ public class Buildings {
                 dout.writeDouble(building.getFloor(i).getSpace(j).getArea());
             }
         }
+        dout.close();
     }
 
     public static Building inputBuilding(InputStream in) throws IOException {
@@ -48,6 +49,7 @@ public class Buildings {
         } else {
             building = new OfficeBuilding(floors);
         }
+        din.close();
         return building;
     }
 
@@ -64,6 +66,7 @@ public class Buildings {
             }
         }
         out.flush();
+        out.close();
     }
 
     public static Building readBuilding(Reader in) throws IOException{
