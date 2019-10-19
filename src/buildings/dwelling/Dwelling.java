@@ -1,8 +1,8 @@
-package buildings.Dwelling;
+package buildings.dwelling;
 
 import buildings.*;
-import buildings.Exceptions.FloorIndexOutOfBoundException;
-import buildings.Exceptions.SpaceIndexOutOfBoundsException;
+import buildings.exceptions.FloorIndexOutOfBoundException;
+import buildings.exceptions.SpaceIndexOutOfBoundsException;
 
 public class Dwelling implements Building {
     private Floor[] floors;

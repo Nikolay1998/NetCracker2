@@ -1,8 +1,12 @@
-package buildings.Dwelling;
+package buildings.dwelling;
 
 import buildings.Floor;
 import buildings.Space;
-import buildings.Exceptions.SpaceIndexOutOfBoundsException;
+import buildings.exceptions.SpaceIndexOutOfBoundsException;
+
+import java.util.Iterator;
+import java.util.Spliterator;
+import java.util.function.Consumer;
 
 public class DwellingFloor implements Floor {
     private Space[] spaces;
@@ -122,5 +126,11 @@ public class DwellingFloor implements Floor {
             if(!this.getSpace(i).equals(floor.getSpace(i))) return false;
         }
         return true;
+    }
+
+
+    @Override
+    public Iterator iterator() {
+        return new DwellingFloorIterator();
     }
 }

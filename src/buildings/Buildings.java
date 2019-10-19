@@ -1,11 +1,11 @@
 package buildings;
 
-import buildings.Dwelling.Dwelling;
-import buildings.Dwelling.DwellingFloor;
-import buildings.Dwelling.Flat;
-import buildings.Office.Office;
-import buildings.Office.OfficeBuilding;
-import buildings.Office.OfficeFloor;
+import buildings.dwelling.Dwelling;
+import buildings.dwelling.DwellingFloor;
+import buildings.dwelling.Flat;
+import buildings.office.Office;
+import buildings.office.OfficeBuilding;
+import buildings.office.OfficeFloor;
 
 import java.io.*;
 

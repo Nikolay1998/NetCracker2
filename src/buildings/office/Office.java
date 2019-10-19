@@ -1,7 +1,7 @@
-package buildings.Office;
+package buildings.office;
 
-import buildings.Exceptions.InvalidRoomsCountException;
-import buildings.Exceptions.InvalidSpaceAreaException;
+import buildings.exceptions.InvalidRoomsCountException;
+import buildings.exceptions.InvalidSpaceAreaException;
 import buildings.Space;
 
 public class Office implements Space {
@@ -12,7 +12,7 @@ public class Office implements Space {
     public static final int DEF_ROOM_COUNT = 1;
 
     public Office() {
-        this.area = DEF_ROOM_COUNT;
+        this.area = DEF_AREA;
         this.roomCount = DEF_ROOM_COUNT;
     }
 
@@ -83,7 +83,7 @@ public class Office implements Space {
 
     @Override
     public String toString() {
-        return "Office{" +
+        return "office{" +
                 "area=" + area +
                 ", roomCount=" + roomCount +
                 '}';

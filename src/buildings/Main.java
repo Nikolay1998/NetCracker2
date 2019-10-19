@@ -1,6 +1,6 @@
 package buildings;
 
-import buildings.Dwelling.Dwelling;
+import buildings.dwelling.Dwelling;
 
 import java.io.*;
 

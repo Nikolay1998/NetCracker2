@@ -1,7 +1,7 @@
 package buildings;
 
-import buildings.Exceptions.InexchangeableFloorsException;
-import buildings.Exceptions.InexchangeableSpacesException;
+import buildings.exceptions.InexchangeableFloorsException;
+import buildings.exceptions.InexchangeableSpacesException;
 
 public class PlacementExchanger {
     public static boolean isValidSpaceReplace(Space first, Space second){

@@ -1,8 +1,8 @@
-package buildings.Office;
+package buildings.office;
 
 import buildings.*;
-import buildings.Exceptions.FloorIndexOutOfBoundException;
-import buildings.Exceptions.SpaceIndexOutOfBoundsException;
+import buildings.exceptions.FloorIndexOutOfBoundException;
+import buildings.exceptions.SpaceIndexOutOfBoundsException;
 
 public class OfficeBuilding implements Building {
     TwoLinkNode head;

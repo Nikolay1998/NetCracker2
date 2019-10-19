@@ -1,4 +1,4 @@
-package buildings.Exceptions;
+package buildings.exceptions;
 
 public class InvalidRoomsCountException extends IllegalArgumentException {
     public InvalidRoomsCountException(){

@@ -1,7 +1,7 @@
 package buildings;
 
-import buildings.Office.Office;
-import buildings.Office.OfficeBuilding;
+import buildings.office.Office;
+import buildings.office.OfficeBuilding;
 import org.junit.Before;
 import org.junit.Test;
 

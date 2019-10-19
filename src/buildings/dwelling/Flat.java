@@ -1,7 +1,7 @@
-package buildings.Dwelling;
+package buildings.dwelling;
 
-import buildings.Exceptions.InvalidRoomsCountException;
-import buildings.Exceptions.InvalidSpaceAreaException;
+import buildings.exceptions.InvalidRoomsCountException;
+import buildings.exceptions.InvalidSpaceAreaException;
 import buildings.Space;
 
 public class Flat implements Space {

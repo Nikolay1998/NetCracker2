@@ -1,4 +1,4 @@
-package buildings.Office;
+package buildings.office;
 
 import buildings.Space;
 

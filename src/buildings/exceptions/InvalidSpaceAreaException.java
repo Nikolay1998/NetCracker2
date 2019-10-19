@@ -1,4 +1,4 @@
-package buildings.Exceptions;
+package buildings.exceptions;
 
 public class InvalidSpaceAreaException extends IllegalArgumentException {
     public InvalidSpaceAreaException(){
