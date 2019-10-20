@@ -4,6 +4,8 @@ import buildings.*;
 import buildings.exceptions.FloorIndexOutOfBoundException;
 import buildings.exceptions.SpaceIndexOutOfBoundsException;
 
+import java.util.Iterator;
+
 public class Dwelling implements Building {
     private Floor[] floors;
 
@@ -219,4 +221,8 @@ public class Dwelling implements Building {
         return true;
     }
 
+    @Override
+    public Iterator iterator() {
+        return new DwellingIterator(this, this.floors);
+    }
 }

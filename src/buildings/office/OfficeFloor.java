@@ -4,6 +4,8 @@ import buildings.Floor;
 import buildings.Space;
 import buildings.exceptions.SpaceIndexOutOfBoundsException;
 
+import java.util.Iterator;
+
 public class OfficeFloor implements Floor {
     OneLinkNode head;
 
@@ -162,5 +164,10 @@ public class OfficeFloor implements Floor {
             if(!this.getSpace(i).equals(floor.getSpace(i))) return false;
         }
         return true;
+    }
+
+    @Override
+    public Iterator iterator() {
+        return new OfficeFloorIterator(this, this.head);
     }
 }

@@ -2,7 +2,7 @@ package buildings;
 
 import java.io.Serializable;
 
-public interface Building extends Serializable {
+public interface Building extends Serializable, Iterable {
     int getFloorCount();
     int getSpaceCount();
     double getArea();
@@ -17,4 +17,5 @@ public interface Building extends Serializable {
     Space getBestSpace();
     Space[] getSortedByAreaSpaces();
     boolean equals(Building building);
+
 }

@@ -131,6 +131,6 @@ public class DwellingFloor implements Floor {
 
     @Override
     public Iterator iterator() {
-        return new DwellingFloorIterator();
+        return new DwellingFloorIterator(this, this.spaces);
     }
 }

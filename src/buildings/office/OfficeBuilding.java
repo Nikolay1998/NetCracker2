@@ -4,6 +4,8 @@ import buildings.*;
 import buildings.exceptions.FloorIndexOutOfBoundException;
 import buildings.exceptions.SpaceIndexOutOfBoundsException;
 
+import java.util.Iterator;
+
 public class OfficeBuilding implements Building {
     TwoLinkNode head;
 
@@ -281,4 +283,8 @@ public class OfficeBuilding implements Building {
         return result;
     }
 
+    @Override
+    public Iterator iterator() {
+        return new OfficeBuildingIterator(this, head);
+    }
 }
