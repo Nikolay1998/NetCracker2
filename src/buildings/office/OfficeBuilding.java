@@ -10,7 +10,7 @@ public class OfficeBuilding implements Building {
     TwoLinkNode head;
 
     private TwoLinkNode getNode(int num) {
-        TwoLinkNode currentNode = head;
+        TwoLinkNode currentNode = head.getNext();
         for (int i = 0; i < num; i++) {
             currentNode = currentNode.getNext();
         }
@@ -18,19 +18,19 @@ public class OfficeBuilding implements Building {
     }
 
     private void addNode(int num, Floor floor) {
-        TwoLinkNode currentNode = head;
-        for (int i = 0; i < num - 1; i++) {
+        TwoLinkNode currentNode = head.getNext();
+        for (int i = 0; i < num; i++) {
             currentNode = currentNode.getNext();
         }
         TwoLinkNode nextNode = currentNode.getNext();
-        TwoLinkNode newNode = new TwoLinkNode(floor, nextNode, currentNode); // 0?
+        TwoLinkNode newNode = new TwoLinkNode(floor, nextNode, currentNode);
         currentNode.setNext(newNode);
         nextNode.setPrev(newNode);
     }
 
     private void deleteNode(int num) {
-        TwoLinkNode currentNode = head;
-        for (int i = 0; i < num - 1; i++) {
+        TwoLinkNode currentNode = head.getNext();
+        for (int i = 0; i < num; i++) {
             currentNode = currentNode.getNext();
         }
         TwoLinkNode next = currentNode.getNext().getNext();
@@ -39,11 +39,13 @@ public class OfficeBuilding implements Building {
     }
 
     public OfficeBuilding(int floorCount, int[] officeCounts) {
-        head = new TwoLinkNode(new OfficeFloor(officeCounts[0]));
-        for (int i = 1; i < floorCount; i++) {
-            TwoLinkNode prevNode = getNode(i - 1);
-            TwoLinkNode newNode = new TwoLinkNode(new OfficeFloor(officeCounts[i]), prevNode);
-            prevNode.setNext(newNode);
+        head = new TwoLinkNode();
+        TwoLinkNode currentNode = head;
+        for (int i = 0; i < floorCount; i++) {
+            //TwoLinkNode prevNode = getNode(i - 1);
+            TwoLinkNode newNode = new TwoLinkNode(new OfficeFloor(officeCounts[i]), currentNode);
+            currentNode.setNext(newNode);
+            currentNode = currentNode.getNext();
         }
         TwoLinkNode lastNode = getNode(floorCount - 1);
         lastNode.setNext(head);
@@ -51,11 +53,11 @@ public class OfficeBuilding implements Building {
     }
 
     public OfficeBuilding(Floor[] floorArray) {
-        head = new TwoLinkNode(floorArray[0]);
-        for (int i = 1; i < floorArray.length; i++) {
-            TwoLinkNode prevNode = getNode(i - 1);
-            TwoLinkNode newNode = new TwoLinkNode(floorArray[i], prevNode);
-            prevNode.setNext(newNode);
+        head = new TwoLinkNode();
+        TwoLinkNode currentNode = head;
+        for (int i = 0; i < floorArray.length; i++) {
+            TwoLinkNode newNode = new TwoLinkNode(floorArray[i], currentNode);
+            currentNode.setNext(newNode);
         }
         TwoLinkNode lastNode = getNode(floorArray.length - 1);
         lastNode.setNext(head);
@@ -64,7 +66,7 @@ public class OfficeBuilding implements Building {
 
     public int getFloorCount() {
         TwoLinkNode currentNode = head.getNext();
-        int counter = 1;
+        int counter = 0;
         while (currentNode != head) {
             currentNode = currentNode.getNext();
             counter++;
@@ -73,7 +75,7 @@ public class OfficeBuilding implements Building {
     }
 
     public int getSpaceCount() {
-        int counter = head.getFloor().getSpaceCount();
+        int counter = 0;
         TwoLinkNode currentNode = head.getNext();
         while (currentNode != head) {
             counter += currentNode.getFloor().getSpaceCount();
@@ -83,7 +85,7 @@ public class OfficeBuilding implements Building {
     }
 
     public double getArea() {
-        double area = head.getFloor().getArea();
+        double area = 0;
         TwoLinkNode currentNode = head.getNext();
         while (currentNode != head) {
             area += currentNode.getFloor().getArea();
@@ -93,7 +95,7 @@ public class OfficeBuilding implements Building {
     }
 
     public int getRoomCount() {
-        int counter = head.getFloor().getRoomCount();
+        int counter = 0;
         TwoLinkNode currentNode = head.getNext();
         while (currentNode != head) {
             counter += currentNode.getFloor().getRoomCount();

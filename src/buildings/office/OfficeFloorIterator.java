@@ -13,12 +13,12 @@ public class OfficeFloorIterator implements Iterator<Space> {
     public OfficeFloorIterator(OfficeFloor floor, OneLinkNode head) {
         this.floor = floor;
         this.head = head;
-        currentNode = this.head;
+        currentNode = this.head.getNext();
     }
 
     @Override
     public boolean hasNext() {
-        if (currentNode.getNext() != head) return true;
+        if (currentNode != head) return true;
         return false;
     }
 

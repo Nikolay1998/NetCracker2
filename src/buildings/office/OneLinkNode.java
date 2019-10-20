@@ -8,6 +8,10 @@ public class OneLinkNode implements Serializable {
     private Space space;
     private OneLinkNode next;
 
+    public OneLinkNode() {
+        next = this;
+    }
+
     public OneLinkNode(Space space, OneLinkNode next) {
         this.space = space;
         this.next = next;

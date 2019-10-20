@@ -18,7 +18,6 @@ public class OfficeFloorIteratorTest {
         assertEquals(floor.getSpace(i++), iterator.next());
         while(iterator.hasNext()){
             assertEquals(floor.getSpace(i++), iterator.next());
-            //System.out.println(iterator.next());
         }
         assertEquals(floor.getSpaceCount(), i);
     }

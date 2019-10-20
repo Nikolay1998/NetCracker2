@@ -20,6 +20,11 @@ public class TwoLinkNode implements Serializable {
         this.prev = prev;
     }
 
+    public TwoLinkNode() {
+        prev = this;
+        next = this;
+    }
+
     public TwoLinkNode(Floor floor) {
         this.floor = floor;
     }
