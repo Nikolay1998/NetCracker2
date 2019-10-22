@@ -58,6 +58,7 @@ public class OfficeBuilding implements Building {
         for (int i = 0; i < floorArray.length; i++) {
             TwoLinkNode newNode = new TwoLinkNode(floorArray[i], currentNode);
             currentNode.setNext(newNode);
+            currentNode = currentNode.getNext();
         }
         TwoLinkNode lastNode = getNode(floorArray.length - 1);
         lastNode.setNext(head);

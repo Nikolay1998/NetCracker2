@@ -1,7 +1,9 @@
 package buildings;
 
+import buildings.dwelling.DwellingFloor;
 import buildings.office.Office;
 import buildings.office.OfficeBuilding;
+import buildings.office.OfficeFloor;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,6 +24,14 @@ public class OfficeBuildingTest {
             officeCounts[i] = i+1;
         }
         building = new OfficeBuilding(size, officeCounts);
+        /*
+        Floor[] floors = new OfficeFloor[4];
+        for(int i = 0; i < 4; i++){
+            floors[i] = new OfficeFloor(3);
+        }
+        building = new OfficeBuilding(floors);
+
+         */
     }
 
     @Test
