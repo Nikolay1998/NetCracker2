@@ -83,9 +83,9 @@ public class Office implements Space {
 
     @Override
     public String toString() {
-        return "office{" +
-                "area=" + area +
-                ", roomCount=" + roomCount +
-                '}';
+        return "Office(" +
+                roomCount +
+                ", " + area +
+                ')';
     }
 }

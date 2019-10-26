@@ -3,11 +3,18 @@ package buildings.dwelling.hotel;
 import buildings.Floor;
 import buildings.Space;
 import buildings.dwelling.Dwelling;
+import buildings.dwelling.DwellingIterator;
 
 public class Hotel extends Dwelling {
 
     public Hotel(int floorCount, int[] flatCount) {
-        super(floorCount, flatCount);
+        if (floorCount != flatCount.length) {
+            throw new IllegalArgumentException();
+        }
+        floors = new Floor[floorCount];
+        for (int i = 0; i < floorCount; i++) {
+            floors[i] = new HotelFloor(flatCount[i]);
+        }
     }
 
     public Hotel(Floor[] floors) {
@@ -42,5 +49,20 @@ public class Hotel extends Dwelling {
             }
         }
         return getFloor(floorWithBestSpaceNum).getBestSpace();
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("Hotel(" + getRating() + ", " +
+                getFloorCount() + ", ");
+        DwellingIterator iterator = new DwellingIterator(this, getFloors());
+        while (iterator.hasNext()){
+            stringBuffer.append(iterator.next().toString());
+            stringBuffer.append(", ");
+        }
+        stringBuffer.delete(stringBuffer.length() - 2, stringBuffer.length());
+        stringBuffer.append(") ");
+        return stringBuffer.toString();
     }
 }

@@ -2,6 +2,7 @@ package buildings.office;
 
 import buildings.Floor;
 import buildings.Space;
+import buildings.dwelling.DwellingFloorIterator;
 import buildings.exceptions.SpaceIndexOutOfBoundsException;
 
 import java.util.Iterator;
@@ -155,6 +156,21 @@ public class OfficeFloor implements Floor {
             if(!this.getSpace(i).equals(floor.getSpace(i))) return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("OfficeFloor(" +
+                getSpaceCount() + ", ");
+        OfficeFloorIterator iterator = new OfficeFloorIterator(this, head);
+        while (iterator.hasNext()){
+            stringBuffer.append(iterator.next().toString());
+            stringBuffer.append(", ");
+        }
+        stringBuffer.delete(stringBuffer.length() - 2, stringBuffer.length());
+        stringBuffer.append(")");
+        return stringBuffer.toString();
     }
 
     @Override

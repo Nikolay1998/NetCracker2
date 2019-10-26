@@ -7,7 +7,10 @@ import buildings.exceptions.SpaceIndexOutOfBoundsException;
 import java.util.Iterator;
 
 public class Dwelling implements Building {
-    private Floor[] floors;
+    protected Floor[] floors;
+
+    public Dwelling() {
+    }
 
     public Dwelling(int floorCount, int[] flatCount) {
         if (floorCount != flatCount.length) {
@@ -224,5 +227,20 @@ public class Dwelling implements Building {
     @Override
     public Iterator iterator() {
         return new DwellingIterator(this, this.floors);
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("Dwelling(" +
+                getFloorCount() + ", ");
+        DwellingIterator iterator = new DwellingIterator(this, getFloors());
+        while (iterator.hasNext()){
+            stringBuffer.append(iterator.next().toString());
+            stringBuffer.append(", ");
+        }
+        stringBuffer.delete(stringBuffer.length() - 2, stringBuffer.length());
+        stringBuffer.append(") ");
+        return stringBuffer.toString();
     }
 }

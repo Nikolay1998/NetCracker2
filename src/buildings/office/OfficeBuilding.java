@@ -287,6 +287,21 @@ public class OfficeBuilding implements Building {
     }
 
     @Override
+    public String toString() {
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("OfficeBuilding(" +
+                getFloorCount() + ", ");
+        OfficeBuildingIterator iterator = new OfficeBuildingIterator(this, head);
+        while (iterator.hasNext()){
+            stringBuffer.append(iterator.next().toString());
+            stringBuffer.append(", ");
+        }
+        stringBuffer.delete(stringBuffer.length() - 2, stringBuffer.length());
+        stringBuffer.append(") ");
+        return stringBuffer.toString();
+    }
+
+    @Override
     public Iterator iterator() {
         return new OfficeBuildingIterator(this, head);
     }

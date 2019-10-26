@@ -63,10 +63,10 @@ public class Flat implements Space {
 
     @Override
     public String toString() {
-        return "Flat{" +
-                "area=" + area +
-                ", roomCount=" + roomCount +
-                '}';
+        return "Flat(" +
+                roomCount +
+                ", " + area +
+                ')';
     }
 
     @Override
@@ -81,5 +81,9 @@ public class Flat implements Space {
             return false;
         }
         return true;
+    }
+
+    public int hashCode(){
+
     }
 }
