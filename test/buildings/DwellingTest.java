@@ -1,6 +1,7 @@
 package buildings;
 
 import buildings.dwelling.Dwelling;
+import buildings.dwelling.DwellingFloor;
 import buildings.dwelling.Flat;
 import buildings.exceptions.InvalidSpaceAreaException;
 import buildings.exceptions.SpaceIndexOutOfBoundsException;
@@ -86,6 +87,15 @@ public class DwellingTest {
             System.out.println(sortedSpaces[i].toString());
             assertEquals(expectedFlats[i], sortedSpaces[i]);
         }
+
+    }
+
+    @Test
+    public void cloneTest(){
+
+        Dwelling newBuilding = (Dwelling) building.clone();
+        System.out.println(newBuilding.toString() + "\n" + building.toString());
+        assertTrue(building.equals(newBuilding));
 
     }
 }

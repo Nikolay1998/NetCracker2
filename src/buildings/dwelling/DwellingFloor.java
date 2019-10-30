@@ -148,4 +148,26 @@ public class DwellingFloor implements Floor {
         stringBuffer.append(")");
         return stringBuffer.toString();
     }
+
+    public Object clone() {
+        Space[] cloneSpaces = new Space[getSpaceCount()];
+        DwellingFloorIterator iterator = new DwellingFloorIterator(this, spaces);
+        int i = 0;
+        while (iterator.hasNext()) {
+            cloneSpaces[i++] = (Space) iterator.next().clone();
+        }
+        DwellingFloor result = new DwellingFloor(cloneSpaces);
+        return result;
+    }
+
+    public int hashCode(){
+
+        int hash = getSpaceCount();
+        Iterator iterator = iterator();
+        while(iterator.hasNext()){
+            hash^=iterator.next().hashCode();
+        }
+        return hash;
+
+    }
 }

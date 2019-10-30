@@ -60,7 +60,7 @@ public class Dwelling implements Building {
 
     public Floor getFloor(int num) {
 
-        if(num >= getFloorCount()){
+        if (num >= getFloorCount()) {
             throw new FloorIndexOutOfBoundException();
         }
 
@@ -70,7 +70,7 @@ public class Dwelling implements Building {
 
     public void setFloor(int num, Floor floor) {
 
-        if(num >= getFloorCount()){
+        if (num >= getFloorCount()) {
             throw new FloorIndexOutOfBoundException();
         }
 
@@ -116,7 +116,7 @@ public class Dwelling implements Building {
 
     public void deleteSpace(int num) {
 
-        if(num >= getSpaceCount()){
+        if (num >= getSpaceCount()) {
             throw new SpaceIndexOutOfBoundsException();
         }
 
@@ -218,10 +218,22 @@ public class Dwelling implements Building {
         if (building.getFloorCount() != this.getFloorCount()) {
             return false;
         }
-        for(int i = 0; i < this.getFloorCount(); i++){
-            if(!this.getFloor(i).equals(building.getFloor(i))) return false;
+        for (int i = 0; i < this.getFloorCount(); i++) {
+            if (!this.getFloor(i).equals(building.getFloor(i))) return false;
         }
         return true;
+    }
+
+    @Override
+    public Object clone() {
+        DwellingIterator iterator = new DwellingIterator(this, floors);
+        Floor[] cloneFloors = new Floor[getFloorCount()];
+        int i = 0;
+        while (iterator.hasNext()) {
+            cloneFloors[i++] = (Floor) iterator.next().clone();
+        }
+        Dwelling result = new Dwelling(cloneFloors);
+        return result;
     }
 
     @Override
@@ -234,13 +246,24 @@ public class Dwelling implements Building {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("Dwelling(" +
                 getFloorCount() + ", ");
-        DwellingIterator iterator = new DwellingIterator(this, getFloors());
-        while (iterator.hasNext()){
+        DwellingIterator iterator = new DwellingIterator(this, floors);
+        while (iterator.hasNext()) {
             stringBuffer.append(iterator.next().toString());
             stringBuffer.append(", ");
         }
         stringBuffer.delete(stringBuffer.length() - 2, stringBuffer.length());
         stringBuffer.append(") ");
         return stringBuffer.toString();
+    }
+
+    public int hashCode(){
+
+        int hash = getFloorCount();
+        Iterator iterator = iterator();
+        while(iterator.hasNext()){
+            hash^=iterator.next().hashCode();
+        }
+        return hash;
+
     }
 }

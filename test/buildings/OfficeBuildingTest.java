@@ -71,4 +71,13 @@ public class OfficeBuildingTest {
 
 
     }
+
+    @Test
+    public void cloneTest(){
+        OfficeBuilding newOffice = (OfficeBuilding) building.clone();
+        building.toString();
+        System.out.println(newOffice.toString() + "\n" + building.toString());
+        assertTrue(building.equals(newOffice));
+
+    }
 }

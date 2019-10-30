@@ -20,7 +20,7 @@ public class OfficeFloor implements Floor {
 
     private void addNode(int num, Space space) {
         OneLinkNode currentNode = head;
-        for (int i = 0; i < num ; i++) {
+        for (int i = 0; i < num; i++) {
             currentNode = currentNode.getNext();
         }
         currentNode.setNext(new OneLinkNode(space, currentNode.getNext()));
@@ -46,7 +46,7 @@ public class OfficeFloor implements Floor {
     }
 
     public OfficeFloor(int size) {
-        if(size < 1) throw new IllegalArgumentException();
+        if (size < 1) throw new IllegalArgumentException();
         head = new OneLinkNode();
         OneLinkNode cuNode = head;
         for (int i = 0; i < size; i++) {
@@ -123,7 +123,7 @@ public class OfficeFloor implements Floor {
 
     public void deleteSpace(int num) {
 
-        if(num >= getSpaceCount()){
+        if (num >= getSpaceCount()) {
             throw new SpaceIndexOutOfBoundsException();
         }
 
@@ -146,16 +146,28 @@ public class OfficeFloor implements Floor {
 
     @Override
     public boolean equals(Floor floor) {
-        if(!OfficeFloor.class.isInstance(floor)){
+        if (!OfficeFloor.class.isInstance(floor)) {
             return false;
         }
-        if(floor.getSpaceCount() != this.getSpaceCount()) {
+        if (floor.getSpaceCount() != this.getSpaceCount()) {
             return false;
         }
-        for(int i = 0; i < this.getSpaceCount(); i++){
-            if(!this.getSpace(i).equals(floor.getSpace(i))) return false;
+        for (int i = 0; i < this.getSpaceCount(); i++) {
+            if (!this.getSpace(i).equals(floor.getSpace(i))) return false;
         }
         return true;
+    }
+
+    @Override
+    public Object clone() {
+        Space[] spaces = new Space[getSpaceCount()];
+        OfficeFloorIterator iterator = new OfficeFloorIterator(this, head);
+        int i = 0;
+        while (iterator.hasNext()) {
+            spaces[i++] = (Space) iterator.next().clone();
+        }
+        OfficeFloor result = new OfficeFloor(spaces);
+        return result;
     }
 
     @Override
@@ -164,13 +176,23 @@ public class OfficeFloor implements Floor {
         stringBuffer.append("OfficeFloor(" +
                 getSpaceCount() + ", ");
         OfficeFloorIterator iterator = new OfficeFloorIterator(this, head);
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             stringBuffer.append(iterator.next().toString());
             stringBuffer.append(", ");
         }
         stringBuffer.delete(stringBuffer.length() - 2, stringBuffer.length());
         stringBuffer.append(")");
         return stringBuffer.toString();
+    }
+
+    public int hashCode(){
+
+        int hash = getSpaceCount();
+        Iterator iterator = iterator();
+        while(iterator.hasNext()){
+            hash^=iterator.next().hashCode();
+        }
+        return hash;
     }
 
     @Override

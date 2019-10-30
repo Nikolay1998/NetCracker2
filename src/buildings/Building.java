@@ -17,5 +17,5 @@ public interface Building extends Serializable, Iterable {
     Space getBestSpace();
     Space[] getSortedByAreaSpaces();
     boolean equals(Building building);
-
+    Object clone();
 }

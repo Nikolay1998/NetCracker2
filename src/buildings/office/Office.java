@@ -69,6 +69,11 @@ public class Office implements Space {
         return true;
     }
 
+    @Override
+    public Object clone() {
+        return new Office(area, roomCount);
+    }
+
     public int getRoomCount() {
         return roomCount;
     }
@@ -87,5 +92,10 @@ public class Office implements Space {
                 roomCount +
                 ", " + area +
                 ')';
+    }
+
+    public int hashCode(){
+        long t_bits = Double.doubleToLongBits(area);
+        return (int) ((t_bits >> 32) ^ t_bits ^ roomCount);
     }
 }

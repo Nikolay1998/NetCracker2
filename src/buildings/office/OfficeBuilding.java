@@ -287,6 +287,18 @@ public class OfficeBuilding implements Building {
     }
 
     @Override
+    public Object clone() {
+        OfficeBuildingIterator iterator = new OfficeBuildingIterator(this, head);
+        Floor[] floors = new Floor[getFloorCount()];
+        int i = 0;
+        while (iterator.hasNext()) {
+            floors[i++] = (Floor) iterator.next().clone();
+        }
+        OfficeBuilding result = new OfficeBuilding(floors);
+        return result;
+    }
+
+    @Override
     public String toString() {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("OfficeBuilding(" +
@@ -304,5 +316,17 @@ public class OfficeBuilding implements Building {
     @Override
     public Iterator iterator() {
         return new OfficeBuildingIterator(this, head);
+    }
+
+
+    public int hashCode(){
+
+        int hash = getFloorCount();
+        Iterator iterator = iterator();
+        while(iterator.hasNext()){
+            hash^=iterator.next().hashCode();
+        }
+        return hash;
+
     }
 }

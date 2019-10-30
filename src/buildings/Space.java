@@ -8,4 +8,5 @@ public interface Space extends Serializable {
     double getArea();
     void setArea(double area);
     boolean equals(Space space);
+    Object clone();
 }

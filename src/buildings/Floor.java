@@ -14,4 +14,5 @@ public interface Floor extends Serializable, Iterable {
     void deleteSpace(int num);
     Space getBestSpace();
     boolean equals(Floor floor);
+    Object clone();
 }

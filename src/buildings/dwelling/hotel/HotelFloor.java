@@ -44,4 +44,18 @@ public class HotelFloor extends DwellingFloor {
         stringBuffer.append(")");
         return stringBuffer.toString();
     }
+
+    public Object clone() {
+        Space[] spaces = new Space[getRoomCount()];
+        DwellingFloorIterator iterator = new DwellingFloorIterator(this, spaces);
+        int i = 0;
+        while (iterator.hasNext()) {
+            spaces[i++] = (Space) iterator.next().clone();
+        }
+        HotelFloor result = new HotelFloor(spaces);
+        result.setRating(rating);
+        return result;
+    }
+
+
 }

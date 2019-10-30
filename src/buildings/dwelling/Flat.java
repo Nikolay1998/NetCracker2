@@ -83,7 +83,14 @@ public class Flat implements Space {
         return true;
     }
 
-    public int hashCode(){
-
+    @Override
+    public Object clone() {
+        return new Flat(area, roomCount);
     }
+
+    public int hashCode(){
+        long t_bits = Double.doubleToLongBits(area);
+        return (int) ((t_bits >> 32) ^ t_bits ^ roomCount);
+    }
+
 }
