@@ -74,10 +74,16 @@ public class OfficeBuildingTest {
 
     @Test
     public void cloneTest(){
-        OfficeBuilding newOffice = (OfficeBuilding) building.clone();
+        OfficeBuilding newOffice = null;
+        try {
+            newOffice = (OfficeBuilding) building.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
         building.toString();
         System.out.println(newOffice.toString() + "\n" + building.toString());
         assertTrue(building.equals(newOffice));
-
     }
+
+
 }

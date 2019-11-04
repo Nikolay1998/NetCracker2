@@ -3,7 +3,7 @@ package buildings;
 import java.io.Serializable;
 import java.util.Iterator;
 
-public interface Floor extends Serializable, Iterable {
+public interface Floor extends Serializable, Iterable, Cloneable {
     int getSpaceCount();
     double getArea();
     int getRoomCount();
@@ -14,5 +14,5 @@ public interface Floor extends Serializable, Iterable {
     void deleteSpace(int num);
     Space getBestSpace();
     boolean equals(Floor floor);
-    Object clone();
+    public Object clone() throws CloneNotSupportedException;
 }

@@ -18,7 +18,7 @@ public class OfficeBuilding implements Building {
     }
 
     private void addNode(int num, Floor floor) {
-        TwoLinkNode currentNode = head.getNext();
+        TwoLinkNode currentNode = head;
         for (int i = 0; i < num; i++) {
             currentNode = currentNode.getNext();
         }
@@ -287,15 +287,15 @@ public class OfficeBuilding implements Building {
     }
 
     @Override
-    public Object clone() {
+    public Object clone() throws CloneNotSupportedException {
+        OfficeBuilding res = (OfficeBuilding) super.clone();
         OfficeBuildingIterator iterator = new OfficeBuildingIterator(this, head);
-        Floor[] floors = new Floor[getFloorCount()];
+        res.head = new TwoLinkNode();
         int i = 0;
         while (iterator.hasNext()) {
-            floors[i++] = (Floor) iterator.next().clone();
+            res.addNode(i++, (Floor) iterator.next().clone());
         }
-        OfficeBuilding result = new OfficeBuilding(floors);
-        return result;
+        return res;
     }
 
     @Override

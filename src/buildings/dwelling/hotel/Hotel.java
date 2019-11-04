@@ -1,9 +1,13 @@
 package buildings.dwelling.hotel;
 
+import buildings.Building;
 import buildings.Floor;
 import buildings.Space;
 import buildings.dwelling.Dwelling;
+import buildings.dwelling.DwellingFloor;
 import buildings.dwelling.DwellingIterator;
+
+import java.util.Iterator;
 
 public class Hotel extends Dwelling {
 
@@ -64,5 +68,38 @@ public class Hotel extends Dwelling {
         stringBuffer.delete(stringBuffer.length() - 2, stringBuffer.length());
         stringBuffer.append(") ");
         return stringBuffer.toString();
+    }
+
+
+    @Override
+    public boolean equals(Building building) {
+        if (!Hotel.class.isInstance(building)) {
+            return false;
+        }
+        if (building.getFloorCount() != this.getFloorCount()) {
+            return false;
+        }
+        for (int i = 0; i < this.getFloorCount(); i++) {
+            if (!this.getFloor(i).equals(building.getFloor(i))) return false;
+        }
+        return true;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        HotelFloor res = (HotelFloor) super.clone();
+        return res;
+    }
+
+    public int hashCode() {
+
+        int hash = getFloorCount();
+        Iterator iterator = iterator();
+        while (iterator.hasNext()) {
+            HotelFloor curFloor = (HotelFloor) iterator.next();
+            hash ^= curFloor.hashCode();
+        }
+        return hash;
+
     }
 }

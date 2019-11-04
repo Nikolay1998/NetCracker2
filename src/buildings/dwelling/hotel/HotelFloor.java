@@ -1,8 +1,11 @@
 package buildings.dwelling.hotel;
 
+import buildings.Floor;
 import buildings.Space;
 import buildings.dwelling.DwellingFloor;
 import buildings.dwelling.DwellingFloorIterator;
+
+import java.util.Iterator;
 
 public class HotelFloor extends DwellingFloor {
 
@@ -34,9 +37,9 @@ public class HotelFloor extends DwellingFloor {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("HotelFloor(" +
                 getRating() + ", " +
-                + getSpaceCount() + ", ");
+                +getSpaceCount() + ", ");
         DwellingFloorIterator iterator = new DwellingFloorIterator(this, getSpaces());
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             stringBuffer.append(iterator.next().toString());
             stringBuffer.append(", ");
         }
@@ -45,17 +48,39 @@ public class HotelFloor extends DwellingFloor {
         return stringBuffer.toString();
     }
 
-    public Object clone() {
-        Space[] spaces = new Space[getRoomCount()];
-        DwellingFloorIterator iterator = new DwellingFloorIterator(this, spaces);
-        int i = 0;
-        while (iterator.hasNext()) {
-            spaces[i++] = (Space) iterator.next().clone();
+    public boolean equals(Floor floor) {
+        if (!HotelFloor.class.isInstance(floor)) {
+            return false;
         }
-        HotelFloor result = new HotelFloor(spaces);
-        result.setRating(rating);
-        return result;
+        HotelFloor eqFloor = (HotelFloor) floor;
+        if (eqFloor.getSpaceCount() != this.getSpaceCount()) {
+            return false;
+        }
+        if (eqFloor.getRating() != this.getRating()) {
+            return false;
+        }
+        for (int i = 0; i < this.getSpaceCount(); i++) {
+            if (!this.getSpace(i).equals(floor.getSpace(i))) return false;
+        }
+        return true;
     }
 
+    public Object clone() throws CloneNotSupportedException {
+        HotelFloor res = null;
+        res = (HotelFloor) super.clone();
+        res.rating = rating;
+        return res;
+    }
 
+    public int hashCode() {
+
+        int hash = getSpaceCount() ^ rating.ordinal();
+        Iterator iterator = iterator();
+        while (iterator.hasNext()) {
+            //HotelFloor curFloor = (HotelFloor) iterator.next();
+            hash ^= (iterator.next().hashCode());
+        }
+        return hash;
+
+    }
 }

@@ -149,15 +149,17 @@ public class DwellingFloor implements Floor {
         return stringBuffer.toString();
     }
 
-    public Object clone() {
+    public Object clone() throws CloneNotSupportedException {
+        DwellingFloor res = null;
+        res = (DwellingFloor) super.clone();
         Space[] cloneSpaces = new Space[getSpaceCount()];
         DwellingFloorIterator iterator = new DwellingFloorIterator(this, spaces);
         int i = 0;
-        while (iterator.hasNext()) {
+        while (iterator.hasNext()){
             cloneSpaces[i++] = (Space) iterator.next().clone();
         }
-        DwellingFloor result = new DwellingFloor(cloneSpaces);
-        return result;
+        res.spaces = cloneSpaces;
+        return res;
     }
 
     public int hashCode(){

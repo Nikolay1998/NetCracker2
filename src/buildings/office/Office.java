@@ -70,8 +70,10 @@ public class Office implements Space {
     }
 
     @Override
-    public Object clone() {
-        return new Office(area, roomCount);
+    public Object clone() throws CloneNotSupportedException {
+        Office res = null;
+        res = (Office)super.clone();
+        return res;
     }
 
     public int getRoomCount() {

@@ -159,15 +159,16 @@ public class OfficeFloor implements Floor {
     }
 
     @Override
-    public Object clone() {
-        Space[] spaces = new Space[getSpaceCount()];
+    public Object clone() throws CloneNotSupportedException {
+        OfficeFloor res = null;
+        res = (OfficeFloor) super.clone();
+        res.head = new OneLinkNode();
         OfficeFloorIterator iterator = new OfficeFloorIterator(this, head);
         int i = 0;
-        while (iterator.hasNext()) {
-            spaces[i++] = (Space) iterator.next().clone();
+        while(iterator.hasNext()){
+            res.addSpace(i++, (Space) iterator.next().clone());
         }
-        OfficeFloor result = new OfficeFloor(spaces);
-        return result;
+        return res;
     }
 
     @Override

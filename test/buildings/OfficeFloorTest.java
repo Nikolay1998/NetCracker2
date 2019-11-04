@@ -77,5 +77,16 @@ public class OfficeFloorTest {
         assertEquals(size + 1, floor.getSpaceCount());
     }
 
+    @Test
+    public void cloneTest(){
+        OfficeFloor newFloor = null;
+        try {
+            newFloor = (OfficeFloor) floor.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(newFloor.toString() + "\n" + floor.toString());
+        assertTrue(floor.equals(newFloor));
+    }
 
 }

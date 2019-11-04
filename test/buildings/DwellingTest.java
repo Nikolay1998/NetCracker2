@@ -93,7 +93,12 @@ public class DwellingTest {
     @Test
     public void cloneTest(){
 
-        Dwelling newBuilding = (Dwelling) building.clone();
+        Dwelling newBuilding = null;
+        try {
+            newBuilding = (Dwelling) building.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
         System.out.println(newBuilding.toString() + "\n" + building.toString());
         assertTrue(building.equals(newBuilding));
 

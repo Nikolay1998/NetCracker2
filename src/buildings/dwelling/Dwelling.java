@@ -225,15 +225,17 @@ public class Dwelling implements Building {
     }
 
     @Override
-    public Object clone() {
+    public Object clone() throws CloneNotSupportedException {
+        Dwelling res = null;
+        res = (Dwelling) super.clone();
         DwellingIterator iterator = new DwellingIterator(this, floors);
         Floor[] cloneFloors = new Floor[getFloorCount()];
         int i = 0;
         while (iterator.hasNext()) {
             cloneFloors[i++] = (Floor) iterator.next().clone();
         }
-        Dwelling result = new Dwelling(cloneFloors);
-        return result;
+        res.floors = cloneFloors;
+        return res;
     }
 
     @Override

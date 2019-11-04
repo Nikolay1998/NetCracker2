@@ -4,7 +4,7 @@ import buildings.exceptions.InvalidRoomsCountException;
 import buildings.exceptions.InvalidSpaceAreaException;
 import buildings.Space;
 
-public class Flat implements Space {
+public class Flat implements Space, Cloneable {
     private double area;
     private int roomCount;
     public static final double DEF_AREA = 50.0;
@@ -71,6 +71,8 @@ public class Flat implements Space {
 
     @Override
     public boolean equals(Space space) {
+        if( space == this) return true;
+        if( !(space instanceof  Space)) return false;
         if(!Flat.class.isInstance(space)){
             return false;
         }
@@ -84,8 +86,10 @@ public class Flat implements Space {
     }
 
     @Override
-    public Object clone() {
-        return new Flat(area, roomCount);
+    public Object clone() throws CloneNotSupportedException {
+        Flat res = null;
+        res = (Flat)super.clone();
+        return res;
     }
 
     public int hashCode(){
