@@ -10,6 +10,8 @@ import buildings.office.OfficeFactory;
 import buildings.office.OfficeFloor;
 
 import java.io.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 public class Buildings {
 
@@ -21,89 +23,53 @@ public class Buildings {
 
     public static void outputBuilding(Building building, OutputStream out) throws IOException {
         DataOutputStream dout = new DataOutputStream(out);
-        dout.writeBoolean(Dwelling.class.isInstance(building));
         dout.writeInt(building.getFloorCount());
         for (int i = 0; i < building.getFloorCount(); i++) {
-            dout.writeBoolean(DwellingFloor.class.isInstance(building.getFloor(i)));
             dout.writeInt(building.getFloor(i).getSpaceCount());
             for (int j = 0; j < building.getFloor(i).getSpaceCount(); j++) {
-                dout.writeBoolean(Flat.class.isInstance(building.getFloor(i).getSpace(j)));
-                dout.writeInt(building.getFloor(i).getSpace(j).getRoomCount());
                 dout.writeDouble(building.getFloor(i).getSpace(j).getArea());
+                dout.writeInt(building.getFloor(i).getSpace(j).getRoomCount());
             }
         }
         dout.close();
     }
 
-    public static Building inputBuilding(InputStream in) throws IOException {
+    public static Building inputBuilding(InputStream in, Class buildingClass, Class floorClass, Class spaceClass) throws IOException {
         DataInputStream din = new DataInputStream(in);
-
-        boolean isDwelling = din.readBoolean();
         Building building;
-
         int floorCount = din.readInt();
         Floor[] floors = new Floor[floorCount];
         for (int i = 0; i < floorCount; i++) {
             Floor currentFloor;
-            boolean isDwellingFloor = din.readBoolean();
             int spaceCount = din.readInt();
-            if (isDwellingFloor) {
-                buildingFactory = new DwellingFactory();
-                //currentFloor = new DwellingFloor(spaceCount);
-            } else {
-                buildingFactory = new OfficeFactory();
-                //currentFloor = new OfficeFloor(spaceCount);
-            }
-            currentFloor = buildingFactory.createFloor(spaceCount);
+            currentFloor = createFloor(spaceCount, floorClass);
             for (int j = 0; j < spaceCount; j++) {
                 Space space;
-                boolean isFlat = din.readBoolean();
-                if (isFlat) {
-                    buildingFactory = new DwellingFactory();
-                    //space = new Flat();
-                } else {
-                    buildingFactory = new OfficeFactory();
-                    //space = new Office();
-                }
-                space = buildingFactory.createSpace(din.readInt(), din.readDouble());
-                //space.setRoomCount(din.readInt());
-                //space.setArea(din.readDouble());
+                space = newSpace(din.readDouble(), din.readInt(), spaceClass);
                 currentFloor.setSpace(j, space);
             }
             floors[i] = currentFloor;
         }
-        if (isDwelling) {
-            buildingFactory = new DwellingFactory();
-            //building = new Dwelling(floors);
-        } else {
-            buildingFactory = new OfficeFactory();
-            //building = new OfficeBuilding(floors);
-        }
-        building = buildingFactory.createBuilding(floors);
+        building = createBuilding(floors, buildingClass);
         din.close();
         return building;
     }
 
     public static void writeBuilding(Building building, Writer out) throws IOException {
-        //BufferedWriter bufferedWriter = new BufferedWriter(out);
-        out.write(Dwelling.class.isInstance(building) + " " + building.getFloorCount() + ' ');
+        out.write(String.valueOf(building.getFloorCount()) + ' ');
         for (int i = 0; i < building.getFloorCount(); i++) {
-            out.write(DwellingFloor.class.isInstance(building.getFloor(i)) + " ");
             out.write(String.valueOf(building.getFloor(i).getSpaceCount()) + ' ');
             for (int j = 0; j < building.getFloor(i).getSpaceCount(); j++) {
-                out.write(Flat.class.isInstance(building.getFloor(i).getSpace(j)) + " ");
-                out.write(String.valueOf(building.getFloor(i).getSpace(j).getRoomCount()) + ' ');
                 out.write(String.valueOf(building.getFloor(i).getSpace(j).getArea()) + ' ');
+                out.write(String.valueOf(building.getFloor(i).getSpace(j).getRoomCount()) + ' ');
             }
         }
         out.flush();
         out.close();
     }
 
-    public static Building readBuilding(Reader in) throws IOException {
+    public static Building readBuilding(Reader in, Class buildingClass, Class floorClass, Class spaceClass) throws IOException {
         StreamTokenizer streamTokenizer = new StreamTokenizer(in);
-        streamTokenizer.nextToken();
-        String isDwelling = streamTokenizer.sval;
         streamTokenizer.nextToken();
         int floorCount = (int) streamTokenizer.nval;
         Building building;
@@ -111,70 +77,106 @@ public class Buildings {
         for (int i = 0; i < floorCount; i++) {
             Floor currentFloor;
             streamTokenizer.nextToken();
-            String isDwellingFloor = streamTokenizer.sval;
-            streamTokenizer.nextToken();
             int spaceCount = (int) streamTokenizer.nval;
-            if (Boolean.valueOf(isDwellingFloor)) {
-                buildingFactory = new DwellingFactory();
-                //currentFloor = new DwellingFloor(spaceCount);
-            } else {
-                buildingFactory = new OfficeFactory();
-                //currentFloor = new OfficeFloor(spaceCount);
-            }
-            currentFloor = buildingFactory.createFloor(spaceCount);
+            currentFloor = createFloor(spaceCount, floorClass);
             for (int j = 0; j < spaceCount; j++) {
                 Space space;
                 streamTokenizer.nextToken();
-                String isFlat = streamTokenizer.sval;
-                if (Boolean.valueOf(isFlat)) {
-                    //space = new Flat();
-                    buildingFactory = new DwellingFactory();
-                } else {
-                    buildingFactory = new OfficeFactory();
-                }
-                streamTokenizer.nextToken();
-                //space.setRoomCount((int) streamTokenizer.nval);
-                int roomCount = (int) streamTokenizer.nval;
-                streamTokenizer.nextToken();
                 double area = streamTokenizer.nval;
-                space = buildingFactory.createSpace(roomCount, area);
+                streamTokenizer.nextToken();
+                int roomCount = (int) streamTokenizer.nval;
+                space = newSpace(area, roomCount, spaceClass);
                 currentFloor.setSpace(j, space);
             }
             floors[i] = currentFloor;
         }
-        if (Boolean.valueOf(isDwelling)) {
-            buildingFactory = new DwellingFactory();
-            //building = new Dwelling(floors);
-        } else {
-            buildingFactory = new OfficeFactory();
-            //building = new OfficeBuilding(floors);
-        }
-        building = buildingFactory.createBuilding(floors);
+        building = createBuilding(floors, buildingClass);
         return building;
     }
 
-    private static Space newSpace(double area, int roomCount) {
-        return buildingFactory.createSpace(roomCount, area);
+    private static Space newSpace(double area, int roomCount, Class spaceClass) throws IllegalArgumentException {
+        try {
+            return (Space) spaceClass.getConstructor(Double.TYPE, Integer.TYPE).newInstance(area, roomCount);
+        } catch (NoSuchMethodException e) {
+            throw new IllegalArgumentException();
+        } catch (IllegalAccessException e) {
+            throw new IllegalArgumentException();
+        } catch (InstantiationException e) {
+            throw new IllegalArgumentException();
+        } catch (InvocationTargetException e) {
+            throw new IllegalArgumentException();
+        }
     }
 
-    private static Space newSpace(double area) {
-        return buildingFactory.createSpace(area);
+    private static Space newSpace(double area, Class spaceClass) throws IllegalArgumentException {
+        try {
+            return (Space) spaceClass.getConstructor(Double.TYPE).newInstance(area);
+        } catch (NoSuchMethodException e) {
+            throw new IllegalArgumentException();
+        } catch (IllegalAccessException e) {
+            throw new IllegalArgumentException();
+        } catch (InstantiationException e) {
+            throw new IllegalArgumentException();
+        } catch (InvocationTargetException e) {
+            throw new IllegalArgumentException();
+        }
     }
 
-    private static Floor createFloor(int spacesCount) {
-        return buildingFactory.createFloor(spacesCount);
+    private static Floor createFloor(int spacesCount, Class floorClass) throws IllegalArgumentException {
+        try {
+            return (Floor) floorClass.getConstructor(Integer.TYPE).newInstance(spacesCount);
+        } catch (NoSuchMethodException e) {
+            throw new IllegalArgumentException();
+        } catch (IllegalAccessException e) {
+            throw new IllegalArgumentException();
+        } catch (InstantiationException e) {
+            throw new IllegalArgumentException();
+        } catch (InvocationTargetException e) {
+            throw new IllegalArgumentException();
+        }
     }
 
-    private static Floor createFloor(Space[] spaces) {
-        return buildingFactory.createFloor(spaces);
+    private static Floor createFloor(Space[] spaces, Class floorClass) throws IllegalArgumentException {
+        try {
+            return (Floor) floorClass.getConstructor(Space.class).newInstance(spaces);
+        } catch (NoSuchMethodException e) {
+            throw new IllegalArgumentException();
+        } catch (IllegalAccessException e) {
+            throw new IllegalArgumentException();
+        } catch (InstantiationException e) {
+            throw new IllegalArgumentException();
+        } catch (InvocationTargetException e) {
+            throw new IllegalArgumentException();
+        }
     }
 
-    private static Building createBuilding(int floorsCount, int[] spacesCounts) {
-        return buildingFactory.createBuilding(floorsCount, spacesCounts);
+    private static Building createBuilding(int floorsCount, int[] spacesCounts, Class buildingClass) throws IllegalArgumentException {
+        try {
+            return (Building) buildingClass.getConstructor(Integer.TYPE, Integer.TYPE).newInstance(floorsCount, spacesCounts);
+        } catch (NoSuchMethodException e) {
+            throw new IllegalArgumentException();
+        } catch (IllegalAccessException e) {
+            throw new IllegalArgumentException();
+        } catch (InstantiationException e) {
+            throw new IllegalArgumentException();
+        } catch (InvocationTargetException e) {
+            throw new IllegalArgumentException();
+        }
     }
 
-    private static Building createBuilding(Floor[] floors) {
-        return buildingFactory.createBuilding(floors);
+    private static Building createBuilding(Floor[] floors, Class buildingClass) throws IllegalArgumentException {
+        try {
+            Constructor constructor = buildingClass.getConstructor(new Class[]{Floor[].class});
+            return (Building) constructor.newInstance((new Object[]{floors}));
+        } catch (NoSuchMethodException e) {
+            throw new IllegalArgumentException();
+        } catch (IllegalAccessException e) {
+            throw new IllegalArgumentException();
+        } catch (InstantiationException e) {
+            throw new IllegalArgumentException();
+        } catch (InvocationTargetException e) {
+            throw new IllegalArgumentException();
+        }
     }
 }
 

@@ -26,6 +26,10 @@ public class Dwelling implements Building {
         this.floors = floors;
     }
 
+    public Dwelling(Floor floor) {
+
+    }
+
     public Floor[] getFloors() {
         return floors;
     }
