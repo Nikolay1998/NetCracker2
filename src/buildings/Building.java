@@ -18,4 +18,6 @@ public interface Building extends Serializable, Iterable, Cloneable {
     Space[] getSortedByAreaSpaces();
     boolean equals(Building building);
     public Object clone() throws CloneNotSupportedException;
+    String toView();
+
 }

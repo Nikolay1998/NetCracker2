@@ -51,7 +51,7 @@ public class BuildingsTest {
              InputStream in = new FileInputStream("build.bin")
         ) {
             Buildings.outputBuilding(building, out);
-            Building readBuilding = Buildings.inputBuilding(in, Dwelling.class, DwellingFloor.class, Flat.class);
+            Building readBuilding = Buildings.inputBuilding(in);
             System.out.println(building.toString());
             System.out.println(readBuilding.toString());
             assertTrue(readBuilding.equals(building));
@@ -66,7 +66,7 @@ public class BuildingsTest {
              InputStream in = new FileInputStream("build.bin")
         ) {
             Buildings.outputBuilding(officeBuilding, out);
-            Building readBuilding = Buildings.inputBuilding(in, OfficeBuilding.class, OfficeFloor.class, Office.class);
+            Building readBuilding = Buildings.inputBuilding(in);
             System.out.println(officeBuilding.toString());
             System.out.println(readBuilding.toString());
             assertTrue(readBuilding.equals(officeBuilding));
@@ -85,7 +85,7 @@ public class BuildingsTest {
              Reader in = new FileReader("build.txt")
         ) {
             Buildings.writeBuilding(building, out);
-            Building readBuilding = Buildings.readBuilding(in, Dwelling.class, DwellingFloor.class, Flat.class);
+            Building readBuilding = Buildings.readBuilding(in);
             assertTrue(readBuilding.equals(building));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -99,7 +99,7 @@ public class BuildingsTest {
              InputStream in = new FileInputStream("build.bin")
         ) {
             Buildings.outputBuilding(officeBuilding, out);
-            Building readBuilding = Buildings.inputBuilding(in, OfficeBuilding.class, OfficeFloor.class, Office.class);
+            Building readBuilding = Buildings.inputBuilding(in);
             System.out.println(officeBuilding.toString());
             System.out.println(readBuilding.toString());
             assertTrue(readBuilding.equals(officeBuilding));

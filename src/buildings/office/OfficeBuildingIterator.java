@@ -1,16 +1,15 @@
 package buildings.office;
 
 import buildings.Floor;
-import buildings.Space;
 
 import java.util.Iterator;
 
 public class OfficeBuildingIterator implements Iterator <Floor> {
     private OfficeBuilding building;
-    private TwoLinkNode head;
-    private TwoLinkNode currentNode;
+    private OfficeBuilding.TwoLinkNode head;
+    private OfficeBuilding.TwoLinkNode currentNode;
 
-    public OfficeBuildingIterator(OfficeBuilding building, TwoLinkNode head) {
+    public OfficeBuildingIterator(OfficeBuilding building, OfficeBuilding.TwoLinkNode head) {
         this.building = building;
         this.head = head;
         currentNode = this.head.getNext();

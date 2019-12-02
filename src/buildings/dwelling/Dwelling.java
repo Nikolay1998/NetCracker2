@@ -243,6 +243,13 @@ public class Dwelling implements Building {
     }
 
     @Override
+    public String toView() {
+        return new String("Type: Dwelling \n\n" +
+                "Floor Count: " + getFloorCount() + "\n\n" +
+                "Total Area: " + getArea());
+    }
+
+    @Override
     public Iterator iterator() {
         return new DwellingIterator(this, this.floors);
     }

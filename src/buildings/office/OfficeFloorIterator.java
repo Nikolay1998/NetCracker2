@@ -7,10 +7,10 @@ import java.util.Iterator;
 public class OfficeFloorIterator implements Iterator<Space> {
 
     private OfficeFloor floor;
-    OneLinkNode head;
-    OneLinkNode currentNode;
+    OfficeFloor.OneLinkNode head;
+    OfficeFloor.OneLinkNode currentNode;
 
-    public OfficeFloorIterator(OfficeFloor floor, OneLinkNode head) {
+    public OfficeFloorIterator(OfficeFloor floor, OfficeFloor.OneLinkNode head) {
         this.floor = floor;
         this.head = head;
         currentNode = this.head.getNext();
