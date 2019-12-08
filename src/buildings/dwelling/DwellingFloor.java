@@ -18,7 +18,7 @@ public class DwellingFloor implements Floor {
         }
     }
 
-    public DwellingFloor(Space[] spaces) {
+    public DwellingFloor(Space... spaces) {
         this.spaces = spaces;
     }
 
@@ -47,21 +47,21 @@ public class DwellingFloor implements Floor {
     }
 
     public Space getSpace(int num) {
-        if(num >= getSpaceCount()){
+        if (num >= getSpaceCount()) {
             throw new SpaceIndexOutOfBoundsException();
         }
         return spaces[num];
     }
 
     public void setSpace(int num, Space newSpace) {
-        if(num >= getSpaceCount()){
+        if (num >= getSpaceCount()) {
             throw new SpaceIndexOutOfBoundsException();
         }
         spaces[num] = newSpace;
     }
 
     public void addSpace(int num, Space newSpace) {
-        if(num > getSpaceCount()){
+        if (num > getSpaceCount()) {
             throw new SpaceIndexOutOfBoundsException();
         }
 
@@ -81,7 +81,7 @@ public class DwellingFloor implements Floor {
     }
 
     public void deleteSpace(int num) {
-        if(num >= getSpaceCount()){
+        if (num >= getSpaceCount()) {
             throw new SpaceIndexOutOfBoundsException();
         }
 
@@ -100,7 +100,7 @@ public class DwellingFloor implements Floor {
     }
 
     public Space getBestSpace() {
-        if(spaces.length>0) {
+        if (spaces.length > 0) {
             double bestArea = 0;
             int bestSpaceNum = 0;
             for (int i = 0; i < spaces.length; i++) {
@@ -110,20 +110,19 @@ public class DwellingFloor implements Floor {
                 }
             }
             return spaces[bestSpaceNum];
-        }
-        else return null;
+        } else return null;
     }
 
     @Override
     public boolean equals(Floor floor) {
-        if(!DwellingFloor.class.isInstance(floor)){
+        if (!DwellingFloor.class.isInstance(floor)) {
             return false;
         }
-        if(floor.getSpaceCount() != this.getSpaceCount()) {
+        if (floor.getSpaceCount() != this.getSpaceCount()) {
             return false;
         }
-        for(int i = 0; i < this.getSpaceCount(); i++){
-            if(!this.getSpace(i).equals(floor.getSpace(i))) return false;
+        for (int i = 0; i < this.getSpaceCount(); i++) {
+            if (!this.getSpace(i).equals(floor.getSpace(i))) return false;
         }
         return true;
     }
@@ -136,17 +135,17 @@ public class DwellingFloor implements Floor {
 
     @Override
     public String toString() {
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("DwellingFloor(" +
+        StringBuilder string = new StringBuilder();
+        string.append("DwellingFloor(" +
                 getSpaceCount() + ", ");
         DwellingFloorIterator iterator = new DwellingFloorIterator(this, getSpaces());
-        while (iterator.hasNext()){
-            stringBuffer.append(iterator.next().toString());
-            stringBuffer.append(", ");
+        while (iterator.hasNext()) {
+            string.append(iterator.next().toString());
+            string.append(", ");
         }
-        stringBuffer.delete(stringBuffer.length() - 2, stringBuffer.length());
-        stringBuffer.append(")");
-        return stringBuffer.toString();
+        string.delete(string.length() - 2, string.length());
+        string.append(")");
+        return string.toString();
     }
 
     public Object clone() throws CloneNotSupportedException {
@@ -155,19 +154,19 @@ public class DwellingFloor implements Floor {
         Space[] cloneSpaces = new Space[getSpaceCount()];
         DwellingFloorIterator iterator = new DwellingFloorIterator(this, spaces);
         int i = 0;
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             cloneSpaces[i++] = (Space) iterator.next().clone();
         }
         res.spaces = cloneSpaces;
         return res;
     }
 
-    public int hashCode(){
+    public int hashCode() {
 
         int hash = getSpaceCount();
         Iterator iterator = iterator();
-        while(iterator.hasNext()){
-            hash^=iterator.next().hashCode();
+        while (iterator.hasNext()) {
+            hash ^= iterator.next().hashCode();
         }
         return hash;
 

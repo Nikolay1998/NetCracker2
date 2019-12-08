@@ -24,7 +24,7 @@ public class HotelFactory implements BuildingFactory {
     }
 
     @Override
-    public Floor createFloor(Space[] spaces) {
+    public Floor createFloor(Space... spaces) {
         return new HotelFloor(spaces);
     }
 
@@ -34,7 +34,7 @@ public class HotelFactory implements BuildingFactory {
     }
 
     @Override
-    public Building createBuilding(Floor[] floors) {
+    public Building createBuilding(Floor... floors) {
         return new Hotel(floors);
     }
 }

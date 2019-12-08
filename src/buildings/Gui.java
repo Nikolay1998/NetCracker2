@@ -2,6 +2,7 @@ package buildings;
 
 import buildings.dwelling.Dwelling;
 import buildings.dwelling.DwellingFactory;
+import buildings.dwelling.DwellingFloor;
 import buildings.office.OfficeFactory;
 
 import javax.swing.*;
@@ -10,10 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 public class Gui extends JFrame {
 
@@ -31,7 +29,7 @@ public class Gui extends JFrame {
 
     private Building currentBuilding;
 
-    public Gui(){
+    /*public Gui(){
         super("Building App");
         this.setBounds(0,0,1000,500);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -191,13 +189,11 @@ public class Gui extends JFrame {
         return panel;
     }
 
-    public static void main(String[] args) {
-        Dwelling aaaa = new Dwelling(4, new int[]{30,30,30,30});
-        try {
-            Buildings.outputBuilding(aaaa, new FileOutputStream("bigBuilding.bin"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+     */
+
+    public static void main(String[] args) throws IOException {
+        Dwelling dwelling = new Dwelling(new DwellingFloor(1), new DwellingFloor(1));
+        Buildings.writeBuilding(dwelling, new FileWriter("build.txt"));
         Gui gui = new Gui();
         gui.setVisible(true);
     }

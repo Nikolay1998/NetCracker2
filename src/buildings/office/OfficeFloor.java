@@ -35,7 +35,7 @@ public class OfficeFloor implements Floor {
 
     }
 
-    public OfficeFloor(Space[] spaceArray) {
+    public OfficeFloor(Space... spaceArray) {
         head = new OneLinkNode();
         OneLinkNode currentNode = head;
         for (int i = 0; i < spaceArray.length; i++) {
@@ -173,17 +173,17 @@ public class OfficeFloor implements Floor {
 
     @Override
     public String toString() {
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("OfficeFloor(" +
+        StringBuilder string = new StringBuilder();
+        string.append("OfficeFloor(" +
                 getSpaceCount() + ", ");
         OfficeFloorIterator iterator = new OfficeFloorIterator(this, head);
         while (iterator.hasNext()) {
-            stringBuffer.append(iterator.next().toString());
-            stringBuffer.append(", ");
+            string.append(iterator.next().toString());
+            string.append(", ");
         }
-        stringBuffer.delete(stringBuffer.length() - 2, stringBuffer.length());
-        stringBuffer.append(")");
-        return stringBuffer.toString();
+        string.delete(string.length() - 2, string.length());
+        string.append(")");
+        return string.toString();
     }
 
     public int hashCode(){

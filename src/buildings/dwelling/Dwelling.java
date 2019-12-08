@@ -22,7 +22,7 @@ public class Dwelling implements Building {
         }
     }
 
-    public Dwelling(Floor[] floors) {
+    public Dwelling(Floor... floors) {
         this.floors = floors;
     }
 
@@ -256,17 +256,17 @@ public class Dwelling implements Building {
 
     @Override
     public String toString() {
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("Dwelling(" +
+        StringBuilder string = new StringBuilder();
+        string.append("Dwelling(" +
                 getFloorCount() + ", ");
         DwellingIterator iterator = new DwellingIterator(this, floors);
         while (iterator.hasNext()) {
-            stringBuffer.append(iterator.next().toString());
-            stringBuffer.append(", ");
+            string.append(iterator.next().toString());
+            string.append(", ");
         }
-        stringBuffer.delete(stringBuffer.length() - 2, stringBuffer.length());
-        stringBuffer.append(") ");
-        return stringBuffer.toString();
+        string.delete(string.length() - 2, string.length());
+        string.append(") ");
+        return string.toString();
     }
 
     public int hashCode(){

@@ -21,7 +21,7 @@ public class Hotel extends Dwelling {
         }
     }
 
-    public Hotel(Floor[] floors) {
+    public Hotel(Floor... floors) {
         super(floors);
     }
 
@@ -57,17 +57,17 @@ public class Hotel extends Dwelling {
 
     @Override
     public String toString() {
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("Hotel(" + getRating() + ", " +
+        StringBuilder string = new StringBuilder();
+        string.append("Hotel(" + getRating() + ", " +
                 getFloorCount() + ", ");
         DwellingIterator iterator = new DwellingIterator(this, getFloors());
         while (iterator.hasNext()){
-            stringBuffer.append(iterator.next().toString());
-            stringBuffer.append(", ");
+            string.append(iterator.next().toString());
+            string.append(", ");
         }
-        stringBuffer.delete(stringBuffer.length() - 2, stringBuffer.length());
-        stringBuffer.append(") ");
-        return stringBuffer.toString();
+        string.delete(string.length() - 2, string.length());
+        string.append(") ");
+        return string.toString();
     }
 
 

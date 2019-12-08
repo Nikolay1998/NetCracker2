@@ -15,6 +15,7 @@ import static org.junit.Assert.*;
 
 public class BuildingsTest {
 
+    /*
     Building building;
 
     Building officeBuilding;
@@ -110,4 +111,6 @@ public class BuildingsTest {
             e.printStackTrace();
         }
     }
+
+     */
 }

@@ -53,7 +53,7 @@ public class OfficeBuilding implements Building {
         head.setPrev(lastNode);
     }
 
-    public OfficeBuilding(Floor[] floorArray) {
+    public OfficeBuilding(Floor... floorArray) {
         head = new TwoLinkNode();
         TwoLinkNode currentNode = head;
         for (int i = 0; i < floorArray.length; i++) {
@@ -308,17 +308,17 @@ public class OfficeBuilding implements Building {
 
     @Override
     public String toString() {
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("OfficeBuilding(" +
+        StringBuilder string = new StringBuilder();
+        string.append("OfficeBuilding(" +
                 getFloorCount() + ", ");
         OfficeBuildingIterator iterator = new OfficeBuildingIterator(this, head);
         while (iterator.hasNext()){
-            stringBuffer.append(iterator.next().toString());
-            stringBuffer.append(", ");
+            string.append(iterator.next().toString());
+            string.append(", ");
         }
-        stringBuffer.delete(stringBuffer.length() - 2, stringBuffer.length());
-        stringBuffer.append(") ");
-        return stringBuffer.toString();
+        string.delete(string.length() - 2, string.length());
+        string.append(") ");
+        return string.toString();
     }
 
     @Override

@@ -19,7 +19,7 @@ public class HotelFloor extends DwellingFloor {
         rating = DEF_RATING;
     }
 
-    public HotelFloor(Space[] spaces) {
+    public HotelFloor(Space... spaces) {
         super(spaces);
         rating = DEF_RATING;
     }
@@ -34,18 +34,18 @@ public class HotelFloor extends DwellingFloor {
 
     @Override
     public String toString() {
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("HotelFloor(" +
+        StringBuilder string = new StringBuilder();
+        string.append("HotelFloor(" +
                 getRating() + ", " +
                 +getSpaceCount() + ", ");
         DwellingFloorIterator iterator = new DwellingFloorIterator(this, getSpaces());
         while (iterator.hasNext()) {
-            stringBuffer.append(iterator.next().toString());
-            stringBuffer.append(", ");
+            string.append(iterator.next().toString());
+            string.append(", ");
         }
-        stringBuffer.delete(stringBuffer.length() - 2, stringBuffer.length());
-        stringBuffer.append(")");
-        return stringBuffer.toString();
+        string.delete(string.length() - 2, string.length());
+        string.append(")");
+        return string.toString();
     }
 
     public boolean equals(Floor floor) {
