@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 
 public class Gui extends JFrame {
 
@@ -29,7 +30,7 @@ public class Gui extends JFrame {
 
     private Building currentBuilding;
 
-    /*public Gui(){
+    public Gui(){
         super("Building App");
         this.setBounds(0,0,1000,500);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -61,7 +62,7 @@ public class Gui extends JFrame {
                         for(int i = 0; i < currentBuilding.getFloorCount(); i++){
                             viewPane.add(createFloorPanel(currentBuilding.getFloor(i), i));
                         }
-                    } catch (IOException ex) {
+                    } catch (IOException | InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException ex) {
                         JOptionPane.showMessageDialog(new JFrame(), ex.getMessage(), "Error",
                                 JOptionPane.ERROR_MESSAGE);
                         ex.printStackTrace();
@@ -112,7 +113,7 @@ public class Gui extends JFrame {
                         for(int i = 0; i < currentBuilding.getFloorCount(); i++){
                             viewPane.add(createFloorPanel(currentBuilding.getFloor(i), i));
                         }
-                    } catch (IOException ex) {
+                    } catch (IOException | InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException ex) {
                         JOptionPane.showMessageDialog(new JFrame(), ex.getMessage());
                         ex.printStackTrace();
                     }
@@ -189,7 +190,7 @@ public class Gui extends JFrame {
         return panel;
     }
 
-     */
+
 
     public static void main(String[] args) throws IOException {
         Dwelling dwelling = new Dwelling(new DwellingFloor(1), new DwellingFloor(1));

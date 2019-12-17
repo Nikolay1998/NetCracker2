@@ -4,67 +4,67 @@ import buildings.Floor;
 import buildings.Space;
 import buildings.exceptions.SpaceIndexOutOfBoundsException;
 
-import java.util.Iterator;
-import java.util.Spliterator;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class DwellingFloor implements Floor {
-    private Space[] spaces;
+    //private Space[] spaces;
+    private List<Space> spaces;
 
     public DwellingFloor(int flatCount) {
-        spaces = new Space[flatCount];
+        spaces = new LinkedList<>();
+        //spaces = new Space[flatCount];
         for (int i = 0; i < flatCount; i++) {
-            spaces[i] = new Flat();
+            //spaces[i] = new Flat();
+            spaces.add(new Flat());
         }
     }
 
     public DwellingFloor(Space... spaces) {
-        this.spaces = spaces;
+        this.spaces.addAll(Arrays.asList(spaces));
     }
 
     public int getSpaceCount() {
-        return spaces.length;
+        return spaces.size();
     }
 
     public double getArea() {
         double result = 0;
-        for (int i = 0; i < spaces.length; i++) {
-            result += spaces[i].getArea();
+        for (Space space : spaces) {
+            result += space.getArea();
         }
         return result;
     }
 
     public int getRoomCount() {
         int result = 0;
-        for (int i = 0; i < spaces.length; i++) {
-            result += spaces[i].getRoomCount();
+        for (int i = 0; i < spaces.size(); i++) {
+            result += spaces.get(i).getRoomCount();
         }
         return result;
     }
 
     public Space[] getSpaces() {
-        return spaces;
+        return (Space[]) spaces.toArray();
     }
 
     public Space getSpace(int num) {
         if (num >= getSpaceCount()) {
             throw new SpaceIndexOutOfBoundsException();
         }
-        return spaces[num];
+        return spaces.get(num);
     }
 
     public void setSpace(int num, Space newSpace) {
         if (num >= getSpaceCount()) {
             throw new SpaceIndexOutOfBoundsException();
         }
-        spaces[num] = newSpace;
+        spaces.set(num, newSpace);
     }
 
     public void addSpace(int num, Space newSpace) {
-        if (num > getSpaceCount()) {
-            throw new SpaceIndexOutOfBoundsException();
-        }
-
+        spaces.add(num, newSpace);
+        /*
         Space[] newSpaces = new Space[spaces.length + 1];
         int i = 0;
         while (i < num) {
@@ -78,9 +78,13 @@ public class DwellingFloor implements Floor {
             i++;
         }
         spaces = newSpaces;
+
+         */
     }
 
     public void deleteSpace(int num) {
+        spaces.remove(num);
+        /*
         if (num >= getSpaceCount()) {
             throw new SpaceIndexOutOfBoundsException();
         }
@@ -97,24 +101,29 @@ public class DwellingFloor implements Floor {
             i++;
         }
         spaces = newSpaces;
+
+         */
     }
 
     public Space getBestSpace() {
-        if (spaces.length > 0) {
+        if (spaces.size() > 0) {
             double bestArea = 0;
             int bestSpaceNum = 0;
-            for (int i = 0; i < spaces.length; i++) {
-                if (spaces[i].getArea() > bestArea) {
-                    bestArea = spaces[i].getArea();
+            int i = 0;
+            for (Space space : spaces) {
+                if (space.getArea() > bestArea) {
+                    bestArea = space.getArea();
                     bestSpaceNum = i;
                 }
+                i++;
             }
-            return spaces[bestSpaceNum];
+            return spaces.get(bestSpaceNum);
         } else return null;
     }
 
     @Override
     public boolean equals(Floor floor) {
+        floor.getSpaces();
         if (!DwellingFloor.class.isInstance(floor)) {
             return false;
         }
@@ -130,7 +139,7 @@ public class DwellingFloor implements Floor {
 
     @Override
     public Iterator iterator() {
-        return new DwellingFloorIterator(this, this.spaces);
+        return new DwellingFloorIterator(this, (Space[]) this.spaces.toArray());
     }
 
     @Override
@@ -152,12 +161,12 @@ public class DwellingFloor implements Floor {
         DwellingFloor res = null;
         res = (DwellingFloor) super.clone();
         Space[] cloneSpaces = new Space[getSpaceCount()];
-        DwellingFloorIterator iterator = new DwellingFloorIterator(this, spaces);
+        DwellingFloorIterator iterator = new DwellingFloorIterator(this, (Space[]) spaces.toArray());
         int i = 0;
         while (iterator.hasNext()) {
             cloneSpaces[i++] = (Space) iterator.next().clone();
         }
-        res.spaces = cloneSpaces;
+        res.spaces = Arrays.asList(cloneSpaces);
         return res;
     }
 

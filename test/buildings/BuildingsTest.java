@@ -10,12 +10,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 
 import static org.junit.Assert.*;
 
 public class BuildingsTest {
 
-    /*
+
     Building building;
 
     Building officeBuilding;
@@ -61,6 +62,14 @@ public class BuildingsTest {
             System.out.println("File not found");
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
 
         try (OutputStream out = new FileOutputStream("build.bin");
@@ -75,6 +84,14 @@ public class BuildingsTest {
             e.printStackTrace();
             System.out.println("File not found");
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
 
@@ -93,6 +110,14 @@ public class BuildingsTest {
             System.out.println("File not found");
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
 
 
@@ -109,8 +134,16 @@ public class BuildingsTest {
             System.out.println("File not found");
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
     }
 
-     */
+
 }

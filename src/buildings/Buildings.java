@@ -44,10 +44,10 @@ public class Buildings {
         for (int i = 0; i < floorCount; i++) {
             Floor currentFloor;
             int spaceCount = din.readInt();
-            currentFloor = createFloor(spaceCount, DwellingFloor.class);
+            currentFloor = createFloor(spaceCount);
             for (int j = 0; j < spaceCount; j++) {
                 Space space;
-                space = newSpace(din.readDouble(), din.readInt());
+                space = newSpace(din.readDouble());
                 currentFloor.setSpace(j, space);
             }
             floors[i] = currentFloor;
@@ -75,7 +75,7 @@ public class Buildings {
         out.close();
     }
 
-    public static Building readBuilding(Reader in) throws IOException {
+    public static Building readBuilding(Reader in) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         Scanner scanner = new Scanner(in);
         int floorCount = scanner.nextInt();
         Building building;
@@ -98,35 +98,33 @@ public class Buildings {
         return building;
     }
 
-    private static <T> Space newSpace(double area, int roomCount) throws IllegalArgumentException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        //return buildingFactory.createSpace(roomCount, area);
-        T obj = new Space();
-        return   .class.getConstructor(Double.TYPE, Integer.TYPE).newInstance(area, roomCount);
+    private static Space newSpace(double area, int roomCount) throws IllegalArgumentException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        return buildingFactory.createSpace(roomCount, area);
     }
 
-    private static Space newSpace(double area, Class spaceClass) throws IllegalArgumentException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        //return buildingFactory.createSpace(area);
-        return (Space) spaceClass.getConstructor(Double.TYPE).newInstance(area);
+    private static Space newSpace(double area) throws IllegalArgumentException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        return buildingFactory.createSpace(area);
+        //return (Space) spaceClass.getConstructor(Double.TYPE).newInstance(area);
     }
 
-    private static Floor createFloor(int spacesCount, Class floorClass) throws IllegalArgumentException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        //return buildingFactory.createFloor(spacesCount);
-        return (Floor) floorClass.getConstructor(Integer.TYPE).newInstance(spacesCount);
+    private static Floor createFloor(int spacesCount) throws IllegalArgumentException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        return buildingFactory.createFloor(spacesCount);
+        //return (Floor) floorClass.getConstructor(Integer.TYPE).newInstance(spacesCount);
     }
 
-    private static Floor createFloor(Class floorClass, Space... spaces) throws IllegalArgumentException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        return (Floor) floorClass.getConstructor().newInstance(spaces);
-        //return buildingFactory.createFloor(spaces);
+    private static Floor createFloor(Space... spaces) throws IllegalArgumentException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        //return (Floor) floorClass.getConstructor().newInstance(spaces);
+        return buildingFactory.createFloor(spaces);
     }
 
-    private static Building createBuilding(int floorsCount, int[] spacesCounts, Class buildingClass) throws IllegalArgumentException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        return (Building) buildingClass.getConstructor().newInstance(floorsCount, spacesCounts);
-        //return buildingFactory.createBuilding(floorsCount, spacesCounts);
+    private static Building createBuilding(int floorsCount, int[] spacesCounts) throws IllegalArgumentException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        //return (Building) buildingClass.getConstructor().newInstance(floorsCount, spacesCounts);
+        return buildingFactory.createBuilding(floorsCount, spacesCounts);
     }
 
-    private static Building createBuilding(Class buildingClass, Floor... floors) throws IllegalArgumentException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        return (Building) buildingClass.getConstructor().newInstance(floors);
-        //return buildingFactory.createBuilding(floors);
+    private static Building createBuilding(Floor... floors) throws IllegalArgumentException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        //return (Building) buildingClass.getConstructor().newInstance(floors);
+        return buildingFactory.createBuilding(floors);
     }
 
 
