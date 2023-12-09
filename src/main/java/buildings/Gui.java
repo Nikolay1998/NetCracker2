@@ -11,7 +11,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
 public class Gui extends JFrame {
@@ -30,9 +33,9 @@ public class Gui extends JFrame {
 
     private Building currentBuilding;
 
-    public Gui(){
+    public Gui() {
         super("Building App");
-        this.setBounds(0,0,1000,500);
+        this.setBounds(0, 0, 1000, 500);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         Container container = this.getContentPane();
@@ -59,10 +62,11 @@ public class Gui extends JFrame {
                     try {
                         currentBuilding = Buildings.inputBuilding(new FileInputStream(file));
                         buildingInfo.setText(currentBuilding.toView());
-                        for(int i = 0; i < currentBuilding.getFloorCount(); i++){
+                        for (int i = 0; i < currentBuilding.getFloorCount(); i++) {
                             viewPane.add(createFloorPanel(currentBuilding.getFloor(i), i));
                         }
-                    } catch (IOException | InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException ex) {
+                    } catch (IOException | InvocationTargetException | NoSuchMethodException | InstantiationException |
+                             IllegalAccessException ex) {
                         JOptionPane.showMessageDialog(new JFrame(), ex.getMessage(), "Error",
                                 JOptionPane.ERROR_MESSAGE);
                         ex.printStackTrace();
@@ -72,7 +76,7 @@ public class Gui extends JFrame {
         });
 
         JMenu lookMenu = new JMenu("Look and Feel");
-        for(UIManager.LookAndFeelInfo info: UIManager.getInstalledLookAndFeels()){
+        for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
             JMenuItem menuItem = new JMenuItem(info.getName());
             menuItem.addActionListener(new ActionListener() {
                 @Override
@@ -110,10 +114,11 @@ public class Gui extends JFrame {
                     try {
                         currentBuilding = Buildings.inputBuilding(new FileInputStream(file));
                         buildingInfo.setText(currentBuilding.toView());
-                        for(int i = 0; i < currentBuilding.getFloorCount(); i++){
+                        for (int i = 0; i < currentBuilding.getFloorCount(); i++) {
                             viewPane.add(createFloorPanel(currentBuilding.getFloor(i), i));
                         }
-                    } catch (IOException | InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException ex) {
+                    } catch (IOException | InvocationTargetException | NoSuchMethodException | InstantiationException |
+                             IllegalAccessException ex) {
                         JOptionPane.showMessageDialog(new JFrame(), ex.getMessage());
                         ex.printStackTrace();
                     }
@@ -124,7 +129,7 @@ public class Gui extends JFrame {
 
         menuBar.add(fileMenu);
         menuBar.add(lookMenu);
-        this.setLayout(new BoxLayout (container, BoxLayout.Y_AXIS));
+        this.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 
 
         infoLabel.setText("Information");
@@ -145,7 +150,7 @@ public class Gui extends JFrame {
     private JPanel createFloorPanel(Floor floor, int j) {
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
-        for(int i = 0; i < floor.getSpaceCount(); i++){
+        for (int i = 0; i < floor.getSpaceCount(); i++) {
             int numberSpace = spaceCounter;
             JButton button = new JButton("Space " + spaceCounter++);
             Space space = floor.getSpace(i);
@@ -189,7 +194,6 @@ public class Gui extends JFrame {
         panel.setBorder(BorderFactory.createLineBorder(Color.black));
         return panel;
     }
-
 
 
     public static void main(String[] args) throws IOException {
